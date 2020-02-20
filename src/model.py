@@ -59,7 +59,6 @@ def train_model(hyperparameters, model, dataloaders, num_epochs=25):
 	criterion = torch.nn.CrossEntropyLoss()
 	optimizer = torch.optim.Adam(model.parameters())
 
-	val_acc_history = []
 
 	for epoch in range(num_epochs):
 		print('Epoch {}/{}'.format(epoch, num_epochs - 1))
@@ -69,7 +68,6 @@ def train_model(hyperparameters, model, dataloaders, num_epochs=25):
 		model.train()  # Set model to training mode
 
 		running_loss = 0.0
-		running_corrects = 0
 		# Iterate over data.
 		for inputs, labels in dataloaders['train']:
 			inputs = inputs.to(device)
