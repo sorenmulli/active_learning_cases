@@ -5,7 +5,7 @@
 \usepackage[english]{babel}
 \usepackage{texfiles/SpeedyGonzales}
 \usepackage{texfiles/MediocreMike}
-
+\usepackage{verbatim} 
 
 
 
@@ -76,6 +76,61 @@ Three different aquisition functions + random...
 Comparison of aquisition functions and random...
 
 Results and plots...
+\begin{comment}
+	Results of using baysian optimization with acquisition MPI: \\
+	${hidden units: 3500, p: 0.4423657706097197, activation func: Sigmoid(), validation loss: 0.6415}$
+	${hidden units: 600, p: 0.05357242679336405, activation func: ReLU(), validation loss: 0.6135}$
+	${hidden units: 800, p: 0.024286531237800668, activation func: Sigmoid(), validation loss: 0.624}$
+	${hidden units: 900, p: 0.5359999678433617, activation func: Tanh(), validation loss: 0.621}$
+	${hidden units: 900, p: 0.6064720199905345, activation func: Tanh(), validation loss: 0.6215}$
+	${hidden units: 3500, p: 0.28760052084452836, activation func: Sigmoid(), validation loss: 0.639}$
+	${hidden units: 3500, p: 0.4812338027466384, activation func: Sigmoid(), validation loss: 0.649}$
+	${hidden units: 3500, p: 0.598166666688632, activation func: Sigmoid(), validation loss: 0.654}$
+	${hidden units: 3500, p: 0.7073019913319729, activation func: Sigmoid(), validation loss: 0.635}$
+	${hidden units: 3500, p: 0.6366823572272423, activation func: Sigmoid(), validation loss: 0.6455}$
+	${hidden units: 3500, p: 0.7208836418636946, activation func: Sigmoid(), validation loss: 0.6425}$
+	${hidden units: 3500, p: 0.8135979227010048, activation func: Sigmoid(), validation loss: 0.6045}$
+	${hidden units: 3500, p: 0.5757959667629431, activation func: Sigmoid(), validation loss: 0.6535}$
+	${hidden units: 3500, p: 0.5577435983137187, activation func: Sigmoid(), validation loss: 0.6535}$
+	${hidden units: 3500, p: 0.4119006857770867, activation func: Sigmoid(), validation loss: 0.6295000000000001}$
+	$bedste:  [3.5000000e+03 2.8204313e-01 3.0000000e+00]$
+	
+	Results of using baysian optimization with acquisition EI: \\
+	${hidden units: 2900, p: 0.2120309217292945, activation func: Sigmoid(), validation loss: 0.6535}$
+	${hidden units: 1300, p: 0.16575828954515115, activation func: ReLU(), validation loss: 0.6465}$
+	${hidden units: 200, p: 0.9318047460286568, activation func: Tanh(), validation loss: 0.335}$
+	${hidden units: 2200, p: 0.7223805260392725, activation func: ReLU6(), validation loss: 0.4905}$
+	${hidden units: 1200, p: 0.05956534512526279, activation func: ReLU6(), validation loss: 0.6355000000000001}$
+	${hidden units: 2900, p: 1.0, activation func: Sigmoid(), validation loss: 0.135}$
+	${hidden units: 2900, p: 0.18851940843012052, activation func: Sigmoid(), validation loss: 0.6545}$
+	${hidden units: 1300, p: 0.5317365663075784, activation func: Sigmoid(), validation loss: 0.665}$
+	${hidden units: 1300, p: 1.0, activation func: Sigmoid(), validation loss: 0.099}$
+	${hidden units: 1300, p: 0.37484134186025747, activation func: Sigmoid(), validation loss: 0.6635}$
+	${hidden units: 1200, p: 0.43302270846068275, activation func: ReLU6(), validation loss: 0.6145}$
+	${hidden units: 1200, p: 0.9814408341697629, activation func: ReLU6(), validation loss: 0.097}$
+	${hidden units: 1300, p: 0.36590712967937133, activation func: Sigmoid(), validation loss: 0.657}$
+	${hidden units: 1300, p: 0, activation func: Sigmoid(), validation loss: 0.6275000000000001}$
+	${hidden units: 1300, p: 0.16460856311701932, activation func: ReLU(), validation loss: 0.6395000000000001}$
+	$bedste:  [1.30000000e+03 5.31736566e-01 3.00000000e+00]$
+	
+	Results of using baysian optimization with acquisition LCB: \\
+	${hidden units: 3300, p: 0.20745359704991084, activation func: ReLU(), validation loss: 0.619}$
+	${hidden units: 2900, p: 0.48178037973857923, activation func: Sigmoid(), validation loss: 0.6355}$
+	${hidden units: 1700, p: 0.37725127529617486, activation func: ReLU6(), validation loss: 0.5955}$
+	${hidden units: 3400, p: 0.5452219321218295, activation func: Sigmoid(), validation loss: 0.6275}$
+	${hidden units: 1800, p: 0.47970862684081317, activation func: ReLU(), validation loss: 0.613}$
+	${hidden units: 2900, p: 0.4817801130255398, activation func: Sigmoid(), validation loss: 0.634}$
+	${hidden units: 2900, p: 0.4891192307830994, activation func: Sigmoid(), validation loss: 0.642}$
+	${hidden units: 2900, p: 0.4947118739255611, activation func: Sigmoid(), validation loss: 0.6365}$
+	${hidden units: 2900, p: 0.5834934845352279, activation func: Sigmoid(), validation loss: 0.651}$
+	${hidden units: 2900, p: 0.6168247073529851, activation func: Sigmoid(), validation loss: 0.6365}$
+	${hidden units: 2900, p: 1, activation func: Sigmoid(), validation loss: 0.0965}$
+	${hidden units: 2900, p: 0.5604663271240786, activation func: Sigmoid(), validation loss: 0.635}$
+	${hidden units: 2900, p: 0.5094736622953687, activation func: Sigmoid(), validation loss: 0.638}$
+	${hidden units: 2900, p: 0.5849237064289087, activation func: Sigmoid(), validation loss: 0.629}$
+	${hidden units: 2900, p: 0.5765931111057664, activation func: Sigmoid(), validation loss: 0.6265}$
+	$bedste:  [2.90000000e+03 5.83493485e-01 3.00000000e+00]$	
+\end{comment}
 
 
 \section{Discussion}
