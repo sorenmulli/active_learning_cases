@@ -413,3 +413,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+docs/project1.pdf
