@@ -1,4 +1,4 @@
-% !TeX spellcheck = en_GB
+% !TeX spellcheck = en_US
 \documentclass[12pt,fleqn,]{article}
 
 
@@ -61,9 +61,14 @@
 
 
 \section{Introduction}
-Parameter optimization sucks but has a huge impact on how good a neural network is...
+%Parameter optimization sucks but has a huge impact on how good a neural network is...
 
-Here we will use Bayesian optimization to find optimal parameters...
+%Here we will use Bayesian optimization to find optimal parameters...
+
+
+Humans are slow and faulty. This means that work costs heaps of money and mistakes happen often. To help mitigate this, machine learning can learn the task at hand in order to optimize the performance at a much lower cost. While effective for many applications, machine learning has one glaring issue that requires skill and tonnes of computing power to overcome; hyperparameter optimization. Optimizing the hyperparameters usually devolves into random guessing, though new methods are on the rise like bayesian optimization, which greatly reduces the effort involved in finding the parameters with use of an acquisition function and probabilistic model.
+
+In this paper, baysian optimization with bayesian processes as probabilistic model and expected improvement, upper confidence bound and probability of improvement as acquisition function will be used to find the hyperparameters of the VGG16 classifier network when training to classify on the 10 classes of the CIFAR10 dataset, optimizing for the validation accuracy.
 
 
 \section{Methods}
