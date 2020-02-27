@@ -58,21 +58,19 @@
 %\tableofcontents
 %\thispagestyle{fancy}
 %\tableofcontents
+
 \begin{abstract}
-Abstract here. 
+
+Optimization of neural network hyperparameters is a costly process usually pervaded by uncertainty. 
+This report combines Bayesian optimization with Gaussian processes to find optimal hyperparameters for the VGG16 image classification network when training on the CIFAR10 dataset. 
+%What is our big idea? What research, analysis, and experiment did we do?
+%What is the answer to our questions?
+%What are the implications of our findings?
+
 \end{abstract}
 
 
-\section{Introduction}
-%Parameter optimization sucks but has a huge impact on how good a neural network is...
-%The accuracy of a neural network can be highly dependent on the hyperparameters used. 
-%However finding the best parameter values can be a costly process. 
-%In this project we will use Bayesian optimization to 
-%USE B O to find best combination of
-%Parameter optimization sucks but has a huge impact on how good a neural network is...
-%Here we will use Bayesian optimization to find optimal parameters...
-
-
+\section{Introduction} 
 Humans are slow and faulty. This means that work costs heaps of money and mistakes happen often. To help mitigate this, machine learning can learn the task at hand in order to optimize the performance at a much lower cost. While effective for many applications, machine learning has one glaring issue that requires skill and tonnes of computing power to overcome; hyperparameter optimization. Optimizing the hyperparameters usually devolves into random guessing, though new methods are on the rise like Bayesian optimization, which greatly reduces the effort involved in finding the parameters with use of an acquisition function and probabilistic model.
 
 In this paper, Bayesian optimization with Gaussian processes as probabilistic model and expected improvement, upper confidence bound and probability of improvement as acquisition function will be used to find the hyperparameters of the VGG16 classifier network when training to classify on the 10 classes of the CIFAR10 dataset, optimizing for the validation accuracy.
@@ -119,6 +117,16 @@ Where $ \kappa $ is a user defined variable used to control the trade off betwee
 
 \section{Results}
 Comparison of aquisition functions and random...
+
+\begin{table}[]
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		& Hidden units & Dropout probability & Activation function & Validation loss \\ \hline
+		EI  & 1300         & 0.3748              & Sigmoid             & 0.6635          \\ \hline
+		MPI & 3500         & 0.5982              & Sigmoid             & 0.654           \\ \hline
+		LCB & 2900         & 0.5835              & Sigmoid             & 0.651           \\ \hline
+	\end{tabular}
+\end{table}
 
 Results and plots...
 \begin{comment}
@@ -167,7 +175,7 @@ Results and plots...
 	${hidden units: 2900, p: 0.4817801130255398, activation func: Sigmoid(), validation loss: 0.634}$
 	${hidden units: 2900, p: 0.4891192307830994, activation func: Sigmoid(), validation loss: 0.642}$
 	${hidden units: 2900, p: 0.4947118739255611, activation func: Sigmoid(), validation loss: 0.6365}$
-	${hidden units: 2900, p: 0.5834934845352279, activation func: Sigmoid(), validation loss: 0.651}$
+		${hidden units: 2900, p: 0.5834934845352279, activation func: Sigmoid(), validation loss: 0.651}$
 	${hidden units: 2900, p: 0.6168247073529851, activation func: Sigmoid(), validation loss: 0.6365}$
 	${hidden units: 2900, p: 1, activation func: Sigmoid(), validation loss: 0.0965}$
 	${hidden units: 2900, p: 0.5604663271240786, activation func: Sigmoid(), validation loss: 0.635}$
