@@ -1,5 +1,5 @@
 % !TeX spellcheck = en_US
-\documentclass[12pt,fleqn,]{article}
+\documentclass[12pt,fleqn]{article}
 
 
 \usepackage[english]{babel}
@@ -38,7 +38,7 @@
 \rfoot{Page \thepage{} of \pageref{LastPage}}
 
 \graphicspath{{imgs/}}
-\linespread{1.15}
+%\linespread{1.15}
 
 
 %TODO: \numberwithin{equation}{section}
@@ -80,6 +80,34 @@ In this paper, Bayesian optimization with Gaussian processes as probabilistic mo
 Gaussian process and Bayesian optimization...
 
 Three different aquisition functions + random...
+
+
+\subsection*{Acquisition Functions}
+
+\textbf{Probability of Improvement} \\
+Probability of improvement evaluates \textit{f}, the objective function, at the point most likely to improve the minimum value. In this project, the objective function returns the negative validation accuracy. Probability of improvement then evaluates at the point most likely to obtain a higher accuracy, since the the function is given the negative accuracy. Mathematically PI can be expressed as,
+\begin{equation*}
+	\text{PI}(\mathbf{x}) = \text{P}(f(\mathbf{x}) \geq f(\mathbf{x}^+) + \xi) 
+	= \Phi\biggl(\frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi}{\sigma(\mathbf{x})}\biggr)
+\end{equation*}
+\noindent
+where $\xi$ is a hyperparameter which can be set by the user. The hyperparameter is a trade off between exploration and exploitation. $\Phi$ is the cumulative distribution function of the Gaussian distribution.
+\newline \\
+\textbf{Expected Improvement} \newline 
+The expectorated improvement tries to quantify the improvement instead of the probability of improving as Probability of Improvement does. It is possible to quantify the average value of improvement if we sample the objective function at $ x $. The acquisition function then computes the expected value of the improvement function at a certain x. Mathematically EI can be expressed as, 
+\begin{equation*}
+\mathrm{EI}(\mathbf{x})=\left\{\begin{array}{ll}
+\left(\mu(\mathbf{x})-f\left(\mathbf{x}^{+}\right)\right) \Phi(Z)+\sigma(\mathbf{x}) \phi(Z) & \text { if } \sigma(\mathbf{x})>0 \\
+0 & \text { if } \sigma(\mathbf{x})<0
+\end{array}\right.
+\end{equation*}
+Here the variable $ Z = \frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi }{\sigma(\mathbf{x})} $ \newline 
+\\
+\textbf{Gaussian Process Upper Confidence Bound} \newline
+The idea behind the GP-UCB is to directly use the mean and variance from the Gaussian distribution. These two parameters are used as the exploration / exploitation trade off. The function can be formulated as the following, 
+\begin{equation*}
+UCB(x) = \mu(x) + \kappa \sigma(x)
+\end{equation*}
 
 
 \section{Results}
@@ -142,6 +170,44 @@ Results and plots...
 	$bedste:  [2.90000000e+03 5.83493485e-01 3.00000000e+00]$	
 \end{comment}
 
+\begin{comment}
+	{'hidden_units': 100, 'p': 0.33, 'activation_func': Sigmoid()}
+	0.6345000000000001
+	
+	{'hidden_units': 100, 'p': 0.33, 'activation_func': Sigmoid()}
+	0.6405
+	
+	{'hidden_units': 100, 'p': 0.66, 'activation_func': ReLU()}
+	0.515
+	
+	{'hidden_units': 100, 'p': 0.66, 'activation_func': Sigmoid()}
+	0.561
+	
+	{'hidden_units': 2000, 'p': 0.33, 'activation_func': Tanh()}
+	0.513
+	
+	{'hidden_units': 2000, 'p': 0.33, 'activation_func': ReLU()}
+	0.649
+	
+	{'hidden_units': 2000, 'p': 0.66, 'activation_func': Sigmoid()}
+	0.6525
+	
+	{'hidden_units': 2000, 'p': 0.66, 'activation_func': ReLU6()}
+	0.5685
+	
+	{'hidden_units': 4000, 'p': 0.33, 'activation_func': Tanh()}
+	0.5595
+	
+	{'hidden_units': 4000, 'p': 0.33, 'activation_func': ReLU6()}
+	0.5345
+	
+	{'hidden_units': 4000, 'p': 0.66, 'activation_func': ReLU6()}
+	0.5015000000000001
+	
+	{'hidden_units': 4000, 'p': 0.66, 'activation_func': Tanh()}
+	0.505
+	
+\end{comment}
 
 \section{Discussion}
 Which one is better...
