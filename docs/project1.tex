@@ -293,6 +293,27 @@ Which one is better...
 	\end{tabular}
 \end{table}
  
+ 
+%Tabel for gridsearch
+\begin{table}[H]
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		Iteration & Hidden units & Dropout probability & Activation function & Validation loss \\ \hline
+		1         & 100          & 0.33                & Sigmoid             & 0.6345          \\ \hline
+		2         & 100          & 0.33                & Sigmoid             & 0.6405          \\ \hline
+		3         & 100          & 0.66                & ReLU                & 0.5150          \\ \hline
+		4         & 100          & 0.66                & Sigmoid             & 0.5610          \\ \hline
+		5         & 2000         & 0.33                & Tanh                & 0.513           \\ \hline
+		6         & 2000         & 0.33                & ReLU                & 0.649           \\ \hline
+		7         & 2000         & 0.66                & Sigmoid             & 0.6525          \\ \hline
+		8         & 2000         & 0.66                & ReLU6               & 0.5685          \\ \hline
+		9         & 4000         & 0.33                & Tanh                & 0.5595          \\ \hline
+		10        & 4000         & 0.33                & ReLU6               & 0.5345          \\ \hline
+		11        & 4000         & 0.66                & ReLU6               & 0.5015          \\ \hline
+		12        & 4000         & 0.66                & Tanh                & 0.5050          \\ \hline
+	\end{tabular}
+\end{table}
+
 \end{document}
 
 
