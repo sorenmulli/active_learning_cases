@@ -83,9 +83,12 @@ Gaussian process and Bayesian optimization...
 
 Three different aquisition functions + random...
 
+\subsection*{Gaussian Process}
+
 
 \subsection*{Acquisition Functions}
-
+In the following section three different acquisition functions will be presented. All of these acquisition functions are implemented by using the GPyOpt library. \newline
+\noindent\\
 \textbf{Probability of Improvement} \\
 Probability of improvement evaluates \textit{f}, the objective function, at the point most likely to improve the minimum value. In this project, the objective function returns the negative validation accuracy. Probability of improvement then evaluates at the point most likely to obtain a higher accuracy, since the the function is given the negative accuracy. Mathematically PI can be expressed as,
 \begin{equation*}
@@ -106,10 +109,12 @@ The expectorated improvement tries to quantify the improvement instead of the pr
 Here the variable $ Z = \frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi }{\sigma(\mathbf{x})} $ \newline 
 \\
 \textbf{Gaussian Process Upper Confidence Bound} \newline
-The idea behind the GP-UCB is to directly use the mean and variance from the Gaussian distribution. These two parameters are used as the exploration / exploitation trade off. The function can be formulated as the following, 
+The idea behind the GP-UCB is to directly use the mean and variance from the Gaussian distribution. These two parameters are used as the exploration / exploitation trade off. The function UCB (Ubber Confidence Bound) can be formulated as the following, 
 \begin{equation*}
 UCB(x) = \mu(x) + \kappa \sigma(x)
 \end{equation*}
+\noindent
+Where $ \kappa $ is a user defined variable used to control the trade off between exploration and exploitation. \newline
 
 
 \section{Results}
@@ -212,9 +217,11 @@ Results and plots...
 \end{comment}
 
 \section{Discussion}
-Which one is better...
+Which one is better... 
 
-
+\section{References}
+\url{https://gpyopt.readthedocs.io/en/latest/index.html}
+ 
 \end{document}
 
 
