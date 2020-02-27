@@ -116,20 +116,19 @@ Where $ \kappa $ is a user defined variable used to control the trade off betwee
 
 
 \section{Results}
-Comparison of aquisition functions and random...
 
-\begin{table}[]
+\begin{table}[H]
 	\begin{tabular}{|l|l|l|l|l|}
 		\hline
 		& Hidden units & Dropout probability & Activation function & Accuracy \\ \hline
 		EI  & 1300         & 0.3748              & Sigmoid             & 0.664          \\ \hline
 		MPI & 3500         & 0.5982              & Sigmoid             & 0.654           \\ \hline
-		LCB & 2900         & 0.5835              & Sigmoid             & 0.651           \\ \hline
+		UCB & 2900         & 0.5835              & Sigmoid             & 0.651           \\ \hline
 		GridSearch & 2000         & 0.66              & Sigmoid             & 0.653          \\ \hline
 	\end{tabular}
+\caption{Baysian optimization has been performed with three different acquisition functions. The optimal hyper-parameters are presented in the table as well as the accuracy of the VGG16 with these specific hyper-parameters. At the bottom of the table a random GridSearch has been implemented to compete against the baysian classifier. All of the results can be seen in the Appendix. }
 \end{table}
 
-Results and plots...
 \begin{comment}
 	Results of using baysian optimization with acquisition MPI: \\
 	${hidden units: 3500, p: 0.4423657706097197, activation func: Sigmoid(), validation loss: 0.6415}$
