@@ -230,6 +230,69 @@ Which one is better...
 \section{References}
 \url{https://gpyopt.readthedocs.io/en/latest/index.html}
  
+ 
+%table med MPI
+\section{Appendix}
+\begin{table}[H]
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		Hidden units & Dropout probability & Activation function & Validation loss \\ \hline
+		3500         & 0.4424              & Sigmoid             & 0.6415          \\ \hline
+		600          & 0.0536              & ReLU                & 0.6135          \\ \hline
+		800          & 0.0243              & Sigmoid             & 0.624           \\ \hline
+		900          & 0.5360              & Tanh                & 0.621           \\ \hline
+		900          & 0.6065              & Tanh                & 0.6215          \\ \hline
+		3500         & 0.2876              & Sigmoid             & 0.639           \\ \hline
+		3500         & 0.4812              & Sigmoid             & 0.649           \\ \hline
+		3500         & 0.5982              & Sigmoid             & 0.654           \\ \hline
+		3500         & 0.7073              & Sigmoid             & 0.635           \\ \hline
+		3500         & 0.6367              & Sigmoid             & 0.6455          \\ \hline
+		3500         & 0.7209              & Sigmoid             & 0.6425          \\ \hline
+		3500         & 0.8136              & Sigmoid             & 0.6045          \\ \hline
+	\end{tabular}
+\end{table}
+
+
+%Table med EI
+\begin{table}[H]
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		Hidden units & Dropout probability & Activation function & Validation loss \\ \hline
+		2900         & 0.2120              & Sigmoid             & 0.6535          \\ \hline
+		1300         & 0.1657              & ReLU                & 0.6465          \\ \hline
+		200          & 0.9318              & Tanh                & 0.3350          \\ \hline
+		2200         & 0.7223              & ReLU6               & 0.4905          \\ \hline
+		1200         & 0.0595              & ReLU6               & 0.6355          \\ \hline
+		2900         & 1.0000              & Sigmoid             & 0.1350          \\ \hline
+		2900         & 0.1885              & Sigmoid             & 0.6545          \\ \hline
+		1300         & 0.5317              & Sigmoid             & 0.6650          \\ \hline
+		1300         & 1.0000              & Sigmoid             & 0.0990          \\ \hline
+		1300         & 0.3748              & Sigmoid             & 0.6635          \\ \hline
+		1200         & 0.4330              & ReLU6               & 0.6145          \\ \hline
+		1200         & 0.9814              & ReLU6               & 0.0970          \\ \hline
+	\end{tabular}
+\end{table}
+
+%Table med LCB
+\begin{table}[]
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		Hidden units & Dropout probability & Activation function & Validation loss \\ \hline
+		3300         & 0.2075              & ReLU                & 0.6190          \\ \hline
+		2900         & 0.4818              & Sigmoid             & 0.6355          \\ \hline
+		1700         & 0.3773              & ReLU6               & 0.5955          \\ \hline
+		3400         & 0.5452              & Sigmoid             & 0.6275          \\ \hline
+		1800         & 0.4797              & ReLU                & 0.6130          \\ \hline
+		2900         & 0.4818              & Sigmoid             & 0.6340          \\ \hline
+		2900         & 0.4891              & Sigmoid             & 0.6420          \\ \hline
+		2900         & 0.4947              & Sigmoid             & 0.6365          \\ \hline
+		2900         & 0.5835              & Sigmoid             & 0.6510          \\ \hline
+		2900         & 0.6168              & Sigmoid             & 0.6365          \\ \hline
+		2900         & 1.0000              & Sigmoid             & 0.0965          \\ \hline
+		2900         & 0.5604              & Sigmoid             & 0.6350          \\ \hline
+	\end{tabular}
+\end{table}
+ 
 \end{document}
 
 
