@@ -3,10 +3,10 @@
 
 
 \usepackage[english]{babel}
+
 \usepackage{texfiles/SpeedyGonzales}
 \usepackage{texfiles/MediocreMike}
 \usepackage{verbatim} 
-
 
 
 
@@ -30,16 +30,16 @@
 	\rfoot{Page \thepage{} of  \pageref{LastPage}}
 	\renewcommand{\headrulewidth}{0pt}
 }
-\pagestyle{fancy}
-\fancyhf{}
-\lhead{Lala}
-\chead{}
-\rhead{}
-\rfoot{Page \thepage{} of \pageref{LastPage}}
+%\pagestyle{fancy}
+%\fancyhf{}
+%\lhead{Lala}
+%\chead{}
+%\rhead{}
+%\rfoot{Page \thepage{} of \pageref{LastPage}}
 
 \graphicspath{{imgs/}}
-%\linespread{1.15}
 
+%\linespread{1.15}
 
 %TODO: \numberwithin{equation}{section}
 %TODO: \numberwithin{footnote}{section}
@@ -121,10 +121,11 @@ Comparison of aquisition functions and random...
 \begin{table}[]
 	\begin{tabular}{|l|l|l|l|l|}
 		\hline
-		& Hidden units & Dropout probability & Activation function & Validation loss \\ \hline
-		EI  & 1300         & 0.3748              & Sigmoid             & 0.6635          \\ \hline
+		& Hidden units & Dropout probability & Activation function & Accuracy \\ \hline
+		EI  & 1300         & 0.3748              & Sigmoid             & 0.664          \\ \hline
 		MPI & 3500         & 0.5982              & Sigmoid             & 0.654           \\ \hline
 		LCB & 2900         & 0.5835              & Sigmoid             & 0.651           \\ \hline
+		GridSearch & 2000         & 0.66              & Sigmoid             & 0.653          \\ \hline
 	\end{tabular}
 \end{table}
 
