@@ -1,7 +1,8 @@
 import numpy as np
-from scipy.spatial.distance import cdist
-from GPyOpt.models.gpmodel import GPModel
 import matplotlib.pyplot as plt
+from sklearn.gaussian_process import GaussianProcessRegressor
+
+
 def load_data():
 	text_data = """ 
 	3500  0.4423657706097197  Sigmoid  0.6415
@@ -58,17 +59,9 @@ def load_data():
 						
 			acq_texts[i][j] = [int(values[0]),  float(values[1]) ]
 			#acq_texts[i][j] +=  activ_translate[values[2]]
-			acq_texts[i][j].append( float(values[3]))
+			acq_texts[i][j].append( -float(values[3]))
 	data = np.array(acq_texts)
 	return data
-
-
-def squared_exponential_kernel(x, y, lengthscale, variance):
-    # COMPUTE ALL THE PAIRWISE DISTANCES, size: NxM
-    sqdist = cdist(x.reshape(-1,1), y.reshape(-1,1))
-    # COMPUTE THE KENEL, this should also be NxM
-    k = variance * np.exp(-sqdist**2 / (lengthscale**2))
-    return k
 
 
 if __name__ == "__main__":
@@ -78,14 +71,10 @@ if __name__ == "__main__":
 		data_i = data[acq_idx]
 		X = data_i[:, :-1]
 		Y = data_i[:, -1:]
-	
-		gp = GPModel(verbose=False)
-		for i in range(1, X.shape[0]):
-			gp.updateModel(X, Y, X[i], Y[i])
 		
+		X[:, 0] /= 5000
+		gp = GaussianProcessRegressor(random_state=42).fit(X, Y)
 		
-		
-
 		N = 200
 		plot_points = []
 
@@ -93,14 +82,13 @@ if __name__ == "__main__":
 		
 		for x_ in x :
 			for y_ in y:
-				plot_points.append([x_,y_])
+				plot_points.append([x_/5000,y_])
 
 		plot_X = np.array(plot_points)
-		
 		xx, yy = np.meshgrid(x, y)
-
-		plot_Z, _ = gp.predict(plot_X)
+		plot_Z  = gp.predict(plot_X)
 		plot_Z = plot_Z.reshape((N,N))
 
 		plt.contourf(xx, yy, plot_Z)
+		plt.scatter(X[:,0]*5000, X[:, 1])
 		plt.show()
