@@ -102,7 +102,7 @@ The expectorated improvement tries to quantify the improvement instead of the pr
 \mathrm{EI}(\mathbf{x})=\left\{\begin{array}{ll}
 \left(\mu(\mathbf{x})-f\left(\mathbf{x}^{+}\right)\right) \Phi(Z)+\sigma(\mathbf{x}) \phi(Z) & \text { if } \sigma(\mathbf{x})>0 \\
 0 & \text { if } \sigma(\mathbf{x})<0
-\end{array}\right.
+\end{array}\right. 
 \end{equation*}
 Here the variable $ Z = \frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi }{\sigma(\mathbf{x})} $ \newline 
 \\
@@ -114,10 +114,11 @@ UCB(x) = \mu(x) + \kappa \sigma(x)
 \noindent
 Where $ \kappa $ is a user defined variable used to control the trade off between exploration and exploitation. \newline
 
+\subsection*{Grid Search}
 
 \section{Results}
 
-\begin{table}[H]
+\begin{table}[H]\label{resultater}
 	\begin{tabular}{|l|l|l|l|l|}
 		\hline
 		& Hidden units & Dropout probability & Activation function & Accuracy \\ \hline
@@ -126,7 +127,7 @@ Where $ \kappa $ is a user defined variable used to control the trade off betwee
 		UCB & 2900         & 0.5835              & Sigmoid             & 0.651           \\ \hline
 		GridSearch & 2000         & 0.66              & Sigmoid             & 0.653          \\ \hline
 	\end{tabular}
-\caption{Baysian optimization has been performed with three different acquisition functions. The optimal hyper-parameters are presented in the table as well as the accuracy of the VGG16 with these specific hyper-parameters. At the bottom of the table a random GridSearch has been implemented to compete against the baysian classifier. All of the results can be seen in the Appendix. }
+\caption{Bayesian optimization has been performed with three different acquisition functions. The optimal hyper-parameters are presented in the table as well as the accuracy of the VGG16 with these specific hyper-parameters. At the bottom of the table a random GridSearch has been implemented to compete against the baysian classifier. All of the results can be seen in the Appendix. }
 \end{table}
 
 \begin{comment}
@@ -225,12 +226,19 @@ Where $ \kappa $ is a user defined variable used to control the trade off betwee
 \end{comment}
 
 \section{Discussion}
-Which one is better... 
+%In this section you interpret your findings and describe why they are important and how they fit in with
+%other research. You can also mention ways your study could have been improved and future areas of
+%research.
+% What might the answer imply, and what does it matter?
+% How does it fit in with what other researchers have found?
+% What are the perspectives for future research? 
+
+From the table seen in results \ref{resultater}, Bayesian optimization has proposed hyper-parameters that makes the accuracy higher than the hyper-parameters found using GridSearch. However, the difference in accuracies between the model proposed by Bayesian optimization and GridSearch are $ \Delta p = 0.011$. Too see if there is an actual significant difference between the accuracy of the models a McNemar test can be performed. This is beyond the scope of this project and will be left for future work. In reality a McNemar test would probably show that there is no significant difference between the accuracy of the two models. Hence, this shows that a random search grid and Bayseian Optimization finds hyper-parameters for VGG16 that are equally good.
+\\\\
+The results discovered in this project prove that Bayesian Optimization can indeed be used for hyper-parameter tuning and is faster than Grid Search. The advantage of Bayesian Optimization is the fact, that it does not explore parts of the parameter space because it believes these areas does not contain parameters that maximizes the accuracy of VGG16. This fact limits the amount of time used for training the model. 
 
 \section{References}
 \url{https://gpyopt.readthedocs.io/en/latest/index.html}
- 
- 
 %table med MPI
 \section{Appendix}
 \begin{table}[H]
