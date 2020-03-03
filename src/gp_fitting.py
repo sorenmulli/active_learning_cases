@@ -90,7 +90,7 @@ if __name__ == "__main__":
 		Z  = gp.predict(plot_X)
 		plot_Z = Z.reshape((N,N))
 
-
+		plt.rcParams.update({'font.size': 22})
 		fig, ax = plt.subplots()
 		contour = ax.contourf(xx, yy, -plot_Z, np.arange(0.5, 0.75, .001), extend = 'both')
 
@@ -104,4 +104,5 @@ if __name__ == "__main__":
 		ax.set_title(f'GP fitted to accuracies acquired by {acqs_str[acq_idx]}')
 		ax.set_xlabel('N hidden neurons')
 		ax.set_ylabel('Dropout probability')
+		
 		plt.show()
