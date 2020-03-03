@@ -1,22 +1,23 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import Matern
 
 
 def load_data():
 	text_data = """ 
-	3500  0.4423657706097197  Sigmoid  0.6415
-	600  0.05357242679336405  ReLU  0.6135
-	800  0.024286531237800668  Sigmoid  0.624
-	900  0.5359999678433617  Tanh  0.621
-	900  0.6064720199905345  Tanh  0.6215
-	3500  0.28760052084452836  Sigmoid  0.639
-	3500  0.4812338027466384  Sigmoid  0.649
-	3500  0.598166666688632  Sigmoid  0.654
-	3500  0.7073019913319729  Sigmoid  0.635
-	3500  0.6366823572272423  Sigmoid  0.6455
-	3500  0.7208836418636946  Sigmoid  0.6425
-	3500  0.8135979227010048  Sigmoid  0.6045
+	  3917  0.6923  1  0.5165  
+	  1805  0.1127  0  0.609  
+	  1217  0.7398  2  0.5765  
+	  2618  0.6605  1  0.5605  
+	  2639  0.491  0  0.6115  
+	  2220  0.3325  0  0.6185  
+	  1002  0.4978  0  0.5965  
+	  3354  0.1637  0  0.609  
+	  1  0.1262  1  0.1145  
+	  2863  0.5179  0  0.5595  
+	  2540  0.1569  0  0.6275000000000001  
+	  3251  1.0  2  0.0835  
 
 	 2403  0.6196  3  0.647  
 	 130  0.7724  1  0.202  
@@ -67,34 +68,40 @@ def load_data():
 if __name__ == "__main__":
 
 	data = load_data()
+	acqs_str = ['EI', 'MPI', 'LCB']
 	for acq_idx in range(data.shape[0]):
 		data_i = data[acq_idx]
 		X = data_i[:, :-1]
 		Y = data_i[:, -1:]
 		
 		X[:, 0] /= 5000
-		gp = GaussianProcessRegressor(random_state=42).fit(X, Y)
+		gp = GaussianProcessRegressor(random_state=42, normalize_y=True, n_restarts_optimizer=100, kernel = Matern(length_scale=1.0, length_scale_bounds=(1e-1, 10.0), nu=2)).fit(X, Y)
 		
 		N = 200
 		plot_points = []
 
 		x, y = np.linspace(0, 5000, N), np.linspace(0, 1, N)
-		
 		for x_ in x :
 			for y_ in y:
 				plot_points.append([x_/5000,y_])
 
 		plot_X = np.array(plot_points)
 		xx, yy = np.meshgrid(x, y)
-		plot_Z  = gp.predict(plot_X)
-		plot_Z = plot_Z.reshape((N,N))
+		Z  = gp.predict(plot_X)
+		plot_Z = Z.reshape((N,N))
 
 
-		fig = plt.figure()
-		zmin,zmax = 0, 1
+		fig, ax = plt.subplots()
+		contour = ax.contourf(xx, yy, -plot_Z, np.arange(0.5, 0.75, .001), extend = 'both')
 
-		cs = plt.contourf(xx, yy, -plot_Z,  vmin=zmin,vmax=zmax)
-		plt.scatter(X[:,0]*5000, X[:, 1], cmap=cs.cmap, vmin=zmin,vmax=zmax)
+		fig.colorbar(contour, ax=ax, label = 'GP Point estimate of accuracy')
+		
+		ax.plot(X[:,0]*5000, X[:, 1], 'r*')
+		for j in range(X.shape[0]):
+			ax.annotate(f'{j+1}: {-Y[j][0]*100:.3} %', (X[j,0]*5000, X[j,1]))
 
-		#plt.colorbar(cvmin=zmin,vmax=zmax)
+
+		ax.set_title(f'GP fitted to accuracies acquired by {acqs_str[acq_idx]}')
+		ax.set_xlabel('N hidden neurons')
+		ax.set_ylabel('Dropout probability')
 		plt.show()
