@@ -121,13 +121,13 @@ Where $ \kappa $ is a user defined variable used to control the trade off betwee
 \begin{table}[H]\label{resultater}
 	\begin{tabular}{|l|l|l|l|l|}
 		\hline
-		& Hidden units & Dropout probability & Activation function & Accuracy \\ \hline
-		EI  & 1300         & 0.3748              & Sigmoid             & 0.664          \\ \hline
-		MPI & 3500         & 0.5982              & Sigmoid             & 0.647           \\ \hline
-		UCB & 2900         & 0.5835              & Sigmoid             & 0.651           \\ \hline
-		GridSearch & 2000         & 0.66              & Sigmoid             & 0.653          \\ \hline
+		Optimal parameters for & Hidden units & Dropout probability & Activation & Validation Accuracy \\ \hline
+		BO: EI  & 2540         & 16\pro              & Tanh             &    62.8\pro       \\ \hline
+		BO: MPI & 2403         & 61\pro             & Sigmoid             & 64.7\pro            \\ \hline
+		BO: UCB & 1150         & 53\pro              & Sigmoid             & 64.6\pro           \\ \hline
+		Grid Search & 2000         & 66\pro              & Sigmoid             & 64.9\pro          \\ \hline
 	\end{tabular}
-\caption{Bayesian optimization has been performed with three different acquisition functions. The optimal hyper-parameters are presented in the table as well as the accuracy of the VGG16 with these specific hyper-parameters. At the bottom of the table a random GridSearch has been implemented to compete against the baysian classifier. All of the results can be seen in the Appendix. }
+\caption{Bayesian optimization has been performed with three different acquisition functions. The optimal hyper-parameters are presented in the table as well as the accuracy of the VGG16 with these specific hyper-parameters. At the bottom of the table a Grid Searching scheme has been implemented to compete against the baysian classifier. All of the results can be seen in the Appendix. }
 \end{table}
 
 \begin{comment}
@@ -239,8 +239,29 @@ The results discovered in this project prove that Bayesian Optimization can inde
 
 \section{References}
 \url{https://gpyopt.readthedocs.io/en/latest/index.html}
-%table med MPI
 \section{Appendix}
+
+EI
+\begin{table}[H]
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		Iteration & Hidden units & Dropout probability & Activation function & Accuracy \\ \hline
+		1 & 3917 & 0.6923 & 1 & 0.5165 \\ \hline 
+		2 & 1805 & 0.1127 & 0 & 0.609 \\ \hline 
+		3 & 1217 & 0.7398 & 2 & 0.5765 \\ \hline 
+		4 & 2618 & 0.6605 & 1 & 0.5605 \\ \hline 
+		5 & 2639 & 0.491 & 0 & 0.6115 \\ \hline 
+		6 & 2220 & 0.3325 & 0 & 0.6185 \\ \hline 
+		7 & 1002 & 0.4978 & 0 & 0.5965 \\ \hline 
+		8 & 3354 & 0.1637 & 0 & 0.609 \\ \hline 
+		9 & 1 & 0.1262 & 1 & 0.1145 \\ \hline 
+		10 & 2863 & 0.5179 & 0 & 0.5595 \\ \hline 
+		11 & 2540 & 0.1569 & 0 & 0.6275000000000001 \\ \hline 
+		12 & 3251 & 1.0 & 2 & 0.0835 \\ \hline 
+	\end{tabular}
+\end{table}
+MPI
+
 \begin{table}[H]
 	\begin{tabular}{|l|l|l|l|l|}
 		\hline
@@ -273,27 +294,8 @@ The results discovered in this project prove that Bayesian Optimization can inde
 \end{table}
 
 
-%Table med EI
-\begin{table}[H]
-	\begin{tabular}{|l|l|l|l|l|}
-		\hline
-		Iteration & Hidden units & Dropout probability & Activation function & Accuracy \\ \hline
-	1 & 3917 & 0.6923 & 1 & 0.5165 \\ \hline 
-	2 & 1805 & 0.1127 & 0 & 0.609 \\ \hline 
-	3 & 1217 & 0.7398 & 2 & 0.5765 \\ \hline 
-	4 & 2618 & 0.6605 & 1 & 0.5605 \\ \hline 
-	5 & 2639 & 0.491 & 0 & 0.6115 \\ \hline 
-	6 & 2220 & 0.3325 & 0 & 0.6185 \\ \hline 
-	7 & 1002 & 0.4978 & 0 & 0.5965 \\ \hline 
-	8 & 3354 & 0.1637 & 0 & 0.609 \\ \hline 
-	9 & 1 & 0.1262 & 1 & 0.1145 \\ \hline 
-	10 & 2863 & 0.5179 & 0 & 0.5595 \\ \hline 
-	11 & 2540 & 0.1569 & 0 & 0.6275000000000001 \\ \hline 
-	12 & 3251 & 1.0 & 2 & 0.0835 \\ \hline 
-	\end{tabular}
-\end{table}
 
-%Table med LCB
+LCB
 \begin{table}[H]
 	\begin{tabular}{|l|l|l|l|l|}
 		\hline
@@ -314,7 +316,7 @@ The results discovered in this project prove that Bayesian Optimization can inde
 \end{table}
  
  
-%Tabel for gridsearch
+grid search
 \begin{table}[H]
 	\begin{tabular}{|l|l|l|l|l|}
 		\hline
