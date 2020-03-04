@@ -117,6 +117,11 @@ Where $ \kappa $ is a user defined variable used to control the trade off betwee
 
 \subsection*{Grid Search}
 
+Grid Search is the most common and hands on way to perform hyper-parameter tuning. It works by exploring the whole parameter space through exhaustive search. In this project Grid Search explores the following parameters:\\
+\texttt{hidden = np.array([100,2000,4000]) ; drop = np.array([0.33, 0.66])\\
+activ\_func = {Tanh, ReLU, ReLU6, Sigmoid} } \\
+Grid Search is implemented as a triple for loop, which constructs 12 different models. The loop runs through the hidden units, the dropout values and chooses an activation function at random. 
+
 \section{Results}
 
 \begin{table}[H]\label{resultater}
