@@ -73,44 +73,43 @@ In this paper, Bayesian optimization with Gaussian processes as probabilistic mo
 
 
 \section{Methods}
-Bayesian optimization of hyperparameters is done by building a probabilistic model of the objective function and then using these probabilities to select the most likely values of hyperparameters to evaluate the true objective function on. After more and more evaluations, the surrogate model will become an increasingly better approximation of the true function. 
+Bayesian optimization of hyperparameters is carried out by building a probabilistic model of the objective function and then using these probabilities to select the most likely values of hyperparameters to evaluate the true objective function on. After more and more evaluations, the surrogate model will become an increasingly better approximation of the true function. 
 
 \subsection*{Gaussian Process}
-In Bayesian optimization, Gaussian Processes (GPs) are used as a non-parametric approach to finding the distribution distribution over functions that are still consistent with the observed data. Hence, the mean of this distribution will be the most probable fit of the data. It should be noted that GPs assume smoothness of the data, meaning that if $x_1$ produces $y_1$, a point $x_2$ close to $x_1$ should produce a $y_2$ close to $y_1$. 
+In Bayesian optimization, Gaussian Processes (GPs) are used as a non-parametric approach to finding the distribution over functions that are still consistent with the observed data. Hence, the mean of this distribution will be the most probable fit of the data. It should be noted that GPs assume smoothness of the data, meaning that if $x_1$ produces $y_1$, a point $x_2$ close to $x_1$ should produce a $y_2$ close to $y_1$. 
 
 \subsection*{Acquisition Functions}
-In the following section three different acquisition functions will be presented. All of these acquisition functions are implemented by using the GPyOpt library. \newline
-\noindent\\
-\textbf{Probability of Improvement} \\
-Probability of improvement evaluates \textit{f}, the objective function, at the point most likely to improve the minimum value. In this project, the objective function returns the negative validation accuracy. Probability of improvement then evaluates at the point most likely to obtain a higher accuracy, since the the function is given the negative accuracy. Mathematically PI can be expressed as,
+
+\subsubsection*{Probability of Improvement (PI)}
+PI evaluates the objective function,\textit{f}, at the point most likely to improve the minimum value. In this project, the objective function returns the negative validation accuracy. PI then evaluates at the point most likely to obtain a higher accuracy, since the the function is given the negative accuracy. Mathematically, PI can be expressed as
 \begin{equation*}
 	\text{PI}(\mathbf{x}) = \text{P}(f(\mathbf{x}) \geq f(\mathbf{x}^+) + \xi) 
-	= \Phi\biggl(\frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi}{\sigma(\mathbf{x})}\biggr)
+	= \Phi\biggl(\frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi}{\sigma(\mathbf{x})}\biggr),
 \end{equation*}
 \noindent
-where $\xi$ is a hyperparameter which can be set by the user. The hyperparameter is a trade off between exploration and exploitation. $\Phi$ is the cumulative distribution function of the Gaussian distribution.
-\newline \\
-\textbf{Expected Improvement} \newline 
-The expectorated improvement tries to quantify the improvement instead of the probability of improving as Probability of Improvement does. It is possible to quantify the average value of improvement if we sample the objective function at $ x $. The acquisition function then computes the expected value of the improvement function at a certain x. Mathematically EI can be expressed as, 
+where $\xi$ represents a trade-off between exploration and exploitation and $\Phi$ is the cumulative distribution function of the Gaussian distribution.
+
+\subsubsection*{Expected Improvement (EI)}
+EI tries to quantify the improvement instead of the probability of improving as PI does. It is possible to quantify the average value of improvement if we sample the objective function at $x$. The acquisition function then computes the expected value of the improvement function at a certain x. EI is expressed as 
 \begin{equation*}
 \mathrm{EI}(\mathbf{x})=\left\{\begin{array}{ll}
 \left(\mu(\mathbf{x})-f\left(\mathbf{x}^{+}\right)\right) \Phi(Z)+\sigma(\mathbf{x}) \phi(Z) & \text { if } \sigma(\mathbf{x})>0 \\
-0 & \text { if } \sigma(\mathbf{x})<0
+0 & \text { if } \sigma(\mathbf{x})<0,
 \end{array}\right. 
 \end{equation*}
-Here the variable $ Z = \frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi }{\sigma(\mathbf{x})} $ \newline 
-\\
-\textbf{Gaussian Process Upper Confidence Bound} \newline
-The idea behind the GP-UCB is to directly use the mean and variance from the Gaussian distribution. These two parameters are used as the exploration / exploitation trade off. The function UCB (Ubber Confidence Bound) can be formulated as the following, 
+where $ Z = \frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi }{\sigma(\mathbf{x})}$ \newline 
+
+\subsubsection*{Gaussian Process Upper Confidence Bound(GP-UCB)}
+The idea behind GP-UCB is to directly use the mean and variance from the Gaussian distribution. These two parameters are used as the exploration / exploitation trade off. The function is given as
 \begin{equation*}
-UCB(x) = \mu(x) + \kappa \sigma(x)
+UCB(x) = \mu(x) + \kappa \sigma(x),
 \end{equation*}
 \noindent
-Where $ \kappa $ is a user defined variable used to control the trade off between exploration and exploitation. \newline
+Where $ \kappa $ controls the explore/exploit trade-off. \newline
 
 \subsection*{Grid Search}
 
-Grid search is the most common and hands on way to perform hyper-parameter tuning. It works by exploring the whole parameter space through exhaustive search. In this project grid search explores the following parameters:\\
+Grid search is the most common and hands-on way to perform hyperparameter tuning. It works by exploring the whole parameter space through exhaustive search. In this project grid search explores the following parameters:\\
 	\indent \indent \texttt{hidden = np.array([100,2000,4000]) ; drop = np.array([0.33, 0.66])\\
  \indent \indent activ\_func = {Tanh, ReLU, ReLU6, Sigmoid} } \\
 Grid search is implemented as a triple for loop, which constructs 12 different models. The loop runs through the hidden units, the dropout values and chooses an activation function at random. 
@@ -125,7 +124,7 @@ Grid search is implemented as a triple for loop, which constructs 12 different m
 		BO: UCB & 1150         & 53\pro              & Sigmoid             & 64.6\pro  & 64.4\pro     \\ 
 		Grid search & 2000         & 66\pro              & Sigmoid             & 64.9\pro & 63.1\pro          \\
 	\end{tabular}
-\caption{Bayesian optimization has been performed with three different acquisition functions. The optimal hyper-parameters are presented in the table as well as the accuracy of the VGG16 with these specific hyper-parameters. At the bottom of the table a grid searching scheme has been implemented to compete against the Bayesian classifier. All of the results can be seen in the Appendix. }
+	\caption{The optimal hyperparameters from running bayesian optimization with all three acquisition functions as well as grid search. All iterations can be seen in the appendix.}
 \end{table}
 \begin{figure}[H]
 	\centering
@@ -237,11 +236,11 @@ Grid search is implemented as a triple for loop, which constructs 12 different m
 % How does it fit in with what other researchers have found?
 % What are the perspectives for future research? 
 
-From the table seen in results \ref{resultater}, Bayesian optimization has proposed hyperparameters that makes the accuracy higher than the hyperparameters found using grid search. However, the difference in accuracies between the model proposed by Bayesian optimization and grid search are $ \Delta p = 0.011$. Too see if there is an actual significant difference between the accuracy of the models, a McNemar test can be performed. This is beyond the scope of this project and will be left for future work. In reality a McNemar test would probably show that there is no significant difference between the accuracy of the two models. Hence, this shows that a random search grid and Bayesian optimization finds hyperparameters for VGG16 that are equally good.
+From the table seen in results \ref{resultater}, Bayesian optimization has proposed hyperparameters that makes the accuracy higher than the hyperparameters found using grid search. However, the difference in accuracies between the model proposed by Bayesian optimization and grid search are $ \Delta p = 0.011$. To see if there is an actual significant difference between the accuracy of the models, a McNemar test can be performed. This is beyond the scope of this project and will be left for future work. In reality a McNemar test would probably show that there is no significant difference between the accuracy of the two models. Hence, this shows that a random search grid and Bayesian optimization finds hyperparameters for VGG16 that are equally good.
 \\\\
-When using the Bayesian optimization with GPyOpt, the first five iterations are purely exploration runs. Which means, that in this project Bayesian optimization only have seven iterations to choose the right direction in the parameter space to find the optimal parameters for VGG16. Due to the short amount of training time used in this project, an emerged challenge is to find parameters that makes VGG16 converge fast. However, this is not necessarily the optimal way of finding parameters that yields the highest possible accuracy of the network, as it is possible that there exists parameters that requires longer training for VGG16 to converge.
+When using the Bayesian optimization with GPyOpt, the first five iterations are purely exploration runs. Which means that in this project, Bayesian optimization only has seven iterations to choose the right direction in the parameter space to find the optimal parameters for VGG16. Due to the short amount of training time used in this project, an emerged challenge is to find parameters that makes VGG16 converge fast. However, this is not necessarily the optimal way of finding parameters that yields the highest possible accuracy of the network, as it is possible that there exists parameters that requires longer training for VGG16 to converge.
 \\\\
-The results discovered in this project shows that Bayesian optimization can be used for hyperparameter tuning. The advantage of Bayesian optimization compared to grid search, is that Bayesian optimization do not need to explore the whole parameter space because it believes certain areas do not contain parameters that maximizes the accuracy of VGG16. This limits the amount of time used for tuning the parameters of the the model compared to grid search which in turn searches the whole parameter space.
+The results discovered in this project shows that Bayesian optimization can be used for hyperparameter tuning. The advantage of Bayesian optimization compared to grid search, is that Bayesian optimization does not need to explore the whole parameter space because it believes certain areas do not contain parameters that maximizes the accuracy of VGG16. This limits the amount of time used for tuning the parameters of the the model compared to grid search which in turn searches the whole parameter space.
 
 \section{References}
 \url{https://gpyopt.readthedocs.io/en/latest/index.html}
