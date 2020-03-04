@@ -101,7 +101,7 @@ if __name__ == "__main__":
 			ax.annotate(f'{j+1}: {-Y[j][0]*100:.3} %', (X[j,0]*5000, X[j,1]))
 
 
-		ax.set_title(f'GP fitted to accuracies acquired by {acqs_str[acq_idx]}')
+		ax.set_title(f'GP fitted to accuracies acquired by {acqs_str[acq_idx]}',y=1.08)
 		ax.set_xlabel('N hidden neurons')
 		ax.set_ylabel('Dropout probability')
 		

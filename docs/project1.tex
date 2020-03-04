@@ -20,7 +20,7 @@
 
 
 
-\title{Bayesian Optimization for Hyperparameter Tuning in the Fully Connected Layers of VGG16}
+\title{Bayesian Optimization for Hyperparameter Tuning in The Fully Connected Layers of VGG16}
 \author{Søren Winkel Holm\and Oskar Wiese\and Anders Henriksen\and Anne Agathe Pedersen}
 \date{\today}
 
@@ -241,7 +241,9 @@ Where $ \kappa $ is a user defined variable used to control the trade off betwee
 
 From the table seen in results \ref{resultater}, Bayesian optimization has proposed hyper-parameters that makes the accuracy higher than the hyper-parameters found using GridSearch. However, the difference in accuracies between the model proposed by Bayesian optimization and GridSearch are $ \Delta p = 0.011$. Too see if there is an actual significant difference between the accuracy of the models a McNemar test can be performed. This is beyond the scope of this project and will be left for future work. In reality a McNemar test would probably show that there is no significant difference between the accuracy of the two models. Hence, this shows that a random search grid and Bayseian Optimization finds hyper-parameters for VGG16 that are equally good.
 \\\\
-The results discovered in this project prove that Bayesian Optimization can indeed be used for hyper-parameter tuning and is faster than Grid Search. The advantage of Bayesian Optimization is the fact, that it does not explore parts of the parameter space because it believes these areas does not contain parameters that maximizes the accuracy of VGG16. This fact limits the amount of time used for training the model. 
+When using the Bayesian Optimization with GPyOpt, the first five iterations are purely exploration runs. Which means, that in this project Bayesian Optimization only have seven iterations to choose the right direction in the parameter space to find the optimal parameters for VGG16. Due to the short amount of training time used in this project, an emerged challenge is to find parameters that makes VGG16 converge fast. However, this is not necessarily the optimal way of finding parameters that yields the highest possible accuracy of the network, as it is possible that there exists parameters that requires longer training for VGG16 to converge.
+\\\\
+The results discovered in this project shows that Bayesian Optimization can be used for hyper-parameter tuning. The advantage of Bayesian Optimization compared to GridSearch, is that Bayesian Optimaztion do not need to explore the whole parameter space because it believes certain areas do not contain parameters that maximizes the accuracy of VGG16. This limits the amount of time used for tuning the parameters of the the model compared to GridSearch which in turn searches the whole parameter space.
 
 \section{References}
 \url{https://gpyopt.readthedocs.io/en/latest/index.html}
