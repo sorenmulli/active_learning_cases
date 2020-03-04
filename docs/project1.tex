@@ -62,9 +62,6 @@
 
 \begin{abstract}
 \noindent Optimization of neural network hyperparameters is a costly process usually pervaded by uncertainty. This report compares the abilities of Bayesian optimization with Gaussian processes to simple grid search for finding the optimal hyperparameters for the fully-connected layers of the VGG16 image classification network. We found that grid search performed slightly better than Bayesian optimization which could be a result of the low amount of opportunities explored. An experiment of bigger scale would have to be conducted in order to draw definite conclusions of the effectiveness of Bayesian optimization compared to grid search.
-%What is our big idea? What research, analysis, and experiment did we do?
-%What is the answer to our questions?
-%What are the implications of our findings?
 
 \end{abstract}
 
@@ -76,12 +73,10 @@ In this paper, Bayesian optimization with Gaussian processes as probabilistic mo
 
 
 \section{Methods}
-Gaussian process and Bayesian optimization...
-
-Three different aquisition functions + random...
+Bayesian optimization of hyperparameters is done by building a probabilistic model of the objective function and then using these probabilities to select the most promising values of hyperparameters to evaluate the true objective function on. After more and more evaluations, the surrogate model will become an increasingly better approximation of the true function. 
 
 \subsection*{Gaussian Process}
-
+In Bayesian optimization, Gaussian Processes (GPs) are used as a non-parametric approach to finding the distribution distribution over functions that are consistent with the observed data. 
 
 \subsection*{Acquisition Functions}
 In the following section three different acquisition functions will be presented. All of these acquisition functions are implemented by using the GPyOpt library. \newline
@@ -115,10 +110,10 @@ Where $ \kappa $ is a user defined variable used to control the trade off betwee
 
 \subsection*{Grid Search}
 
-Grid Search is the most common and hands on way to perform hyper-parameter tuning. It works by exploring the whole parameter space through exhaustive search. In this project Grid Search explores the following parameters:\\
+Grid search is the most common and hands on way to perform hyper-parameter tuning. It works by exploring the whole parameter space through exhaustive search. In this project grid search explores the following parameters:\\
 	\indent \indent \texttt{hidden = np.array([100,2000,4000]) ; drop = np.array([0.33, 0.66])\\
  \indent \indent activ\_func = {Tanh, ReLU, ReLU6, Sigmoid} } \\
-Grid Search is implemented as a triple for loop, which constructs 12 different models. The loop runs through the hidden units, the dropout values and chooses an activation function at random. 
+Grid search is implemented as a triple for loop, which constructs 12 different models. The loop runs through the hidden units, the dropout values and chooses an activation function at random. 
 
 \section{Results}
 
@@ -128,9 +123,9 @@ Grid Search is implemented as a triple for loop, which constructs 12 different m
 		BO: EI  & 2540      & 16\pro              & Tanh             &    62.8\pro & 61.7\pro   \\ 
 		BO: MPI & 2403         & 61\pro             & Sigmoid             & 64.7\pro  & 63.1\pro     \\ 
 		BO: UCB & 1150         & 53\pro              & Sigmoid             & 64.6\pro  & 64.4\pro     \\ 
-		Grid Search & 2000         & 66\pro              & Sigmoid             & 64.9\pro & 63.1\pro          \\
+		Grid search & 2000         & 66\pro              & Sigmoid             & 64.9\pro & 63.1\pro          \\
 	\end{tabular}
-\caption{Bayesian optimization has been performed with three different acquisition functions. The optimal hyper-parameters are presented in the table as well as the accuracy of the VGG16 with these specific hyper-parameters. At the bottom of the table a Grid Searching scheme has been implemented to compete against the baysian classifier. All of the results can be seen in the Appendix. }
+\caption{Bayesian optimization has been performed with three different acquisition functions. The optimal hyper-parameters are presented in the table as well as the accuracy of the VGG16 with these specific hyper-parameters. At the bottom of the table a grid searching scheme has been implemented to compete against the baysian classifier. All of the results can be seen in the Appendix. }
 \end{table}
 \begin{figure}[H]
 	\centering
@@ -242,11 +237,11 @@ Grid Search is implemented as a triple for loop, which constructs 12 different m
 % How does it fit in with what other researchers have found?
 % What are the perspectives for future research? 
 
-From the table seen in results \ref{resultater}, Bayesian optimization has proposed hyper-parameters that makes the accuracy higher than the hyper-parameters found using GridSearch. However, the difference in accuracies between the model proposed by Bayesian optimization and GridSearch are $ \Delta p = 0.011$. Too see if there is an actual significant difference between the accuracy of the models a McNemar test can be performed. This is beyond the scope of this project and will be left for future work. In reality a McNemar test would probably show that there is no significant difference between the accuracy of the two models. Hence, this shows that a random search grid and Bayseian Optimization finds hyper-parameters for VGG16 that are equally good.
+From the table seen in results \ref{resultater}, Bayesian optimization has proposed hyper-parameters that makes the accuracy higher than the hyper-parameters found using grid search. However, the difference in accuracies between the model proposed by Bayesian optimization and grid search are $ \Delta p = 0.011$. Too see if there is an actual significant difference between the accuracy of the models a McNemar test can be performed. This is beyond the scope of this project and will be left for future work. In reality a McNemar test would probably show that there is no significant difference between the accuracy of the two models. Hence, this shows that a random search grid and Bayesian Optimization finds hyper-parameters for VGG16 that are equally good.
 \\\\
 When using the Bayesian Optimization with GPyOpt, the first five iterations are purely exploration runs. Which means, that in this project Bayesian Optimization only have seven iterations to choose the right direction in the parameter space to find the optimal parameters for VGG16. Due to the short amount of training time used in this project, an emerged challenge is to find parameters that makes VGG16 converge fast. However, this is not necessarily the optimal way of finding parameters that yields the highest possible accuracy of the network, as it is possible that there exists parameters that requires longer training for VGG16 to converge.
 \\\\
-The results discovered in this project shows that Bayesian Optimization can be used for hyper-parameter tuning. The advantage of Bayesian Optimization compared to GridSearch, is that Bayesian Optimaztion do not need to explore the whole parameter space because it believes certain areas do not contain parameters that maximizes the accuracy of VGG16. This limits the amount of time used for tuning the parameters of the the model compared to GridSearch which in turn searches the whole parameter space.
+The results discovered in this project shows that Bayesian Optimization can be used for hyper-parameter tuning. The advantage of Bayesian Optimization compared to grid search, is that Bayesian optimization do not need to explore the whole parameter space because it believes certain areas do not contain parameters that maximizes the accuracy of VGG16. This limits the amount of time used for tuning the parameters of the the model compared to grid search which in turn searches the whole parameter space.
 
 \section{References}
 \url{https://gpyopt.readthedocs.io/en/latest/index.html}
