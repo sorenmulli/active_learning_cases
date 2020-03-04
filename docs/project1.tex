@@ -6,21 +6,11 @@
 
 \usepackage{texfiles/SpeedyGonzales}
 \usepackage{texfiles/MediocreMike}
-\usepackage{verbatim} 
+\usepackage{multicol}
 
 
 
-
-
-
-
-
-
-
-
-
-
-\title{Bayesian Optimization for Hyperparameter Tuning in The Fully Connected Layers of VGG16}
+\title{\vspace*{-3.5cm}Bayesian Optimization for Hyperparameter Tuning in The Fully Connected Layers of VGG16}
 \author{Søren Winkel Holm\and Oskar Wiese\and Anders Henriksen\and Anne Agathe Pedersen}
 \date{\today}
 
@@ -49,11 +39,6 @@
 
 \begin{document}
 
-
-
-
-
-
 \maketitle
 
 %\tableofcontents
@@ -61,79 +46,67 @@
 %\tableofcontents
 
 \begin{abstract}
-\noindent Optimization of neural network hyper parameters is a costly process of uncertainty balancing exploration of parameters and exploitation of known results. This experiment compares Bayesian Optimization using Gaussian Processes to  simple grid search for finding the optimal hyper parameters for the fully-connected layers of the VGG16 image classification deep convolutional network. The training is compared using three different acquisitions functions and. Little difference is found which could be a result of the limited scope of the network training but the Bayesian Optimization method allows for a visualization of the estimated model accuracy on the hyper parameter space.
+\noindent Optimization of neural network hyper parameters is a costly process of uncertainty balancing exploration of parameters and exploitation of known results. This experiment compares Bayesian Optimization using Gaussian Processes to  simple grid search for finding the optimal hyper parameters for the fully-connected layers of the VGG16 image classification deep convolutional network. The success of the training is compared for three different acquisitions functions. Little difference is found which could be a result of the limited scope of the network training but the Bayesian Optimization method allows for a visualization of the estimated model accuracy on the hyper parameter space.
 
 \end{abstract}
 
+\begin{multicols}{2}
+
 
 \section{Introduction} 
-Development of effective machine learning models has spawned a vision of generalizable machine intelligence which can replace the comparatively slower and more erronoeus human work in many fields. While this generalizability is often true, the popular deep models have one glaring issue that requires skill and tonnes of computing power to overcome; hyperparameter optimization. Optimizing the hyperparameters usually devolves into random guessing, though new methods are on the rise like Bayesian optimization, which greatly reduces the effort involved in finding the parameters with use of an acquisition function and probabilistic model.
+Development of effective machine learning models has spawned a vision of generalizable machine intelligence which can replace  slower and more erroneous human work in many fields. While this generalizability is often true, the popular deep models have at least one obvious issue that requires domain knowledge, skill and large amounts of computing power to overcome; hyper parameter optimization. Optimizing the hyper parameters usually can devolve into random guessing or extensive sampling from a large parameter space. Bayesian Optimization guides this by modeling the parameter space explicitly reducing the guessing and limiting the size of the search involved in finding the parameters with use of an acquisition function and probabilistic model.
 
-In this paper, Bayesian optimization with Gaussian processes as probabilistic model and expected improvement, upper confidence bound and probability of improvement as acquisition function will be used to find the hyperparameters of the VGG16 classifier network when training to classify on the 10 classes of the CIFAR10 dataset, optimizing for the validation accuracy.
-
+In this project, Baysian optimization with Gaussian processes as probabilistic model will be used to optimize the hyper parameters for training the VGG16 network on the CIFAR10 image classification data set thus gaining experience with the method and comparing it to simple grid search.
 
 \section{Methods}
-Bayesian optimization of hyperparameters is carried out by building a probabilistic model of the objective function and then using these probabilities to select the most likely values of hyperparameters to evaluate the true objective function on. After more and more evaluations, the surrogate model will become an increasingly better approximation of the true function. 
+\texttt{All code available at \url{github.com/sorenmulli/active_learning_cases}}
 
-\subsection*{Gaussian Process}
-In Bayesian optimization, Gaussian Processes (GPs) are used as a non-parametric approach to finding the distribution over functions that are still consistent with the observed data. Hence, the mean of this distribution will be the most probable fit of the data. It should be noted that GPs assume smoothness of the data, meaning that if $x_1$ produces $y_1$, a point $x_2$ close to $x_1$ should produce a $y_2$ close to $y_1$. 
+The objective function that is to be optimized consists of using the \texttt{pytorch} pretrained VGG16 network \cite{vgg} and training its' three fully connected layers on 8000 images from the CIFAR10 10-class data set \cite{cifar10} for 10 epochs and returning the accuracy on the 2000 validation images. 
+This accuracy is then modeled by the non-parametric Gaussian processes (GP) as a function of three following hyper parameters in the given ranges:
+\begin{itemize}
+	\item Number of units in the hidden layer \(\in [1, 5000]\) 
+	\item Dropout probability before each layer \(\in [0,1]\)
+	\item Activation function after each layer (\textit{tanh}, ReLU, ReLU6, Sigmoid)
+\end{itemize}
+The GP operates using the smoothness assumption on the network outputs and its lengthscale and variance parameters are optimized using log-likelihood. The number of units are scaled down to \([0,1]\) for lengthscale convergence and the categorical variable is one-out-of-4 encoded. 
 
-\subsection*{Acquisition Functions}
+From this probabilistic model,  three different acquisition functions that chooses parameters for next training and balances exploration and exploitation are compared:
 
-\subsubsection*{Probability of Improvement (PI)}
-PI evaluates the objective function, \textit{f}, at the point most likely to improve the minimum value. In this project, PI evaluates at the point most likely to obtain a higher accuracy, since the function is given the negative accuracy. PI is evaluated by
-\begin{equation*}
-	\text{PI}(\mathbf{x}) = \text{P}(f(\mathbf{x}) \geq f(\mathbf{x}^+) + \xi) 
-	= \Phi\biggl(\frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi}{\sigma(\mathbf{x})}\biggr),
-\end{equation*}
-\noindent
-where $\xi$ is an explore/exploit trade-off variable and $\Phi$ is the gaussian CDF.
+\begin{itemize}
+	\item \textbf{Expected Improvement (EI)} maximizing the accuracy improvement for each possible hyper parameter
+	\item \textbf{Maximum Probability of Improvement (MPI)} training the network with the parameters most likely to obtain a higher accuracy
+	\item \textbf{Upper Confidence Bound(UCB)} Using the mean and standard deviation from the GP directly to guide the exploration
+\end{itemize}
+The Bayesian optimization is started by sampling five random points from the objective function, fitting the GP to these and iteratively surveying the next 7 points in the hyper parameter space using the GP and the acqusistion function. This is done for each acqusition function together with a grid search of equally spaced point in the chosen hyper parameter domain resulting in \(4\times12\) network trainings. The optimizaiton is performed by the GPyOpt library \cite{gpyopt} with the  explore/exploit trade-off variable set to 0.01.
 
-\subsubsection*{Expected Improvement (EI)}
-EI attempts to quantify the improvement instead of the probability. The average improvement is quantified by sampling the objective function at $x$. The acquisition function then computes the expected value of the improvement function at a certain $x$. EI is expressed as 
-\begin{equation*}
-\mathrm{EI}(\mathbf{x})=\left\{\begin{array}{ll}
-\left(\mu(\mathbf{x})-f\left(\mathbf{x}^{+}\right)\right) \Phi(Z)+\sigma(\mathbf{x}) \phi(Z) & \text { if } \sigma(\mathbf{x})>0 \\
-0 & \text { if } \sigma(\mathbf{x})<0,
-\end{array}\right. 
-\end{equation*}
-where $ Z = \frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi }{\sigma(\mathbf{x})}$. \newline 
+For each method, the optimal parameters are stored and a network is trained and evaluated on the test set of 10000 images.
 
-\subsubsection*{Gaussian Process Upper Confidence Bound(GP-UCB)}
-GP-UCB uses the predictive mean and standard deviation from the Gaussian distribution directly to guide the exploration. The function is given as
-\begin{equation*}
-UCB(x) = \mu(x) + \kappa \sigma(x),
-\end{equation*}
-\noindent
-Where $ \kappa $ controls the explore/exploit trade-off. \newline
-
-\subsection*{Grid Search}
-
-Grid search is a commonplace way of performing hyperparameter tuning by exhaustively searching the parameter space. In this project, grid search explores these parameters:\\
-	\indent \indent \texttt{hidden = np.array([100,2000,4000]) ; drop = np.array([0.33, 0.66])\\
- \indent \indent activ\_func = {Tanh, ReLU, ReLU6, Sigmoid} } \\
-This implementation constructs 12 models, which is the same amount as the number of GP iterations. 
+\end{multicols}
 
 \section{Results}
 
 \begin{table}[H]\label{resultater}
 	\begin{tabular}{l|lllll}
-		  & Opt. hidden units & Opt. dropout \textit{p} & Opt. activation & Val. accuracy &Test accuracy \\ \hline
-		BO: EI  & 2540      & 16\pro              & Tanh             &    62.8\pro & 61.7\pro   \\ 
+		  & Hidden units & Dropout \textit{p} & Activation & Val. accuracy &Test accuracy \\ \hline
+		BO: EI  & 2540      & 16\pro              & \textit{tanh}             &    62.8\pro & 61.7\pro   \\ 
 		BO: MPI & 2403         & 61\pro             & Sigmoid             & 64.7\pro  & 63.1\pro     \\ 
 		BO: UCB & 1150         & 53\pro              & Sigmoid             & 64.6\pro  & 64.4\pro     \\ 
 		Grid search & 2000         & 66\pro              & Sigmoid             & 64.9\pro & 63.1\pro          \\
 	\end{tabular}
-	\caption{The optimal hyperparameters from running bayesian optimization with all three acquisition functions as well as grid search. All iterations can be seen in the appendix.}
+	\caption{The optimal hyperparameters from running Bayesian optimization (BO) with all three acquisition functions as well as grid search. All iterations can be seen in the appendix.}
 \end{table}
-\begin{figure}[H]
+\begin{figure}
 	\centering
-
+	
 	\includegraphics[width=\textwidth]{EIGP}	
-
-\caption{The Gaussian process fitted to the twelve accuracy points acquired by the expected improvement function. The other GP visualizations can be seen in the appendix.}
-%It is clear that especially the sixth iteration of the grid search happens to hit points where the GP finds accuracy peaks. 
+	
+	\caption{The Gaussian process fitted to the twelve accuracy points acquired by the expected improvement function. The other GP visualizations can be seen in the appendix.}
+	\label{fig:gp}
+	%It is clear that especially the sixth iteration of the grid search happens to hit points where the GP finds accuracy peaks. 
 \end{figure}
+
+\begin{multicols}{2}
+
 \section{Discussion}
 %In this section you interpret your findings and describe why they are important and how they fit in with
 %other research. You can also mention ways your study could have been improved and future areas of
@@ -142,14 +115,26 @@ This implementation constructs 12 models, which is the same amount as the number
 % How does it fit in with what other researchers have found?
 % What are the perspectives for future research? 
 
-From the table seen in results \ref{resultater}, Bayesian optimization has proposed hyperparameters that makes the accuracy higher than the hyperparameters found using grid search. However, the difference in accuracies between the model proposed by Bayesian optimization and grid search are $ \Delta p = 0.011$. To see if there is an actual significant difference between the accuracy of the models, a McNemar test can be performed. This is beyond the scope of this project and will be left for future work. In reality a McNemar test would probably show that there is no significant difference between the accuracy of the two models. Hence, this shows that a random search grid and Bayesian optimization finds hyperparameters for VGG16 that are equally good.
-\\\\
-When using the Bayesian optimization with GPyOpt, the first five iterations are purely exploration runs. Which means that in this project, Bayesian optimization only has seven iterations to choose the right direction in the parameter space to find the optimal parameters for VGG16. Due to the short amount of training time used in this project, an emerged challenge is to find parameters that makes VGG16 converge fast. However, this is not necessarily the optimal way of finding parameters that yields the highest possible accuracy of the network, as it is possible that there exists parameters that requires longer training for VGG16 to converge.
-\\\\
-The results discovered in this project shows that Bayesian optimization can be used for hyperparameter tuning. The advantage of Bayesian optimization compared to grid search, is that Bayesian optimization does not need to explore the whole parameter space because it believes certain areas do not contain parameters that maximizes the accuracy of VGG16. This limits the amount of time used for tuning the parameters of the the model compared to grid search which in turn searches the whole parameter space.
+The differences in accuracies between the model proposed by the Bayesian optimization models and grid search are very small \(\delta \sim 1\pro \) and convincing statistical significance is not expected. In this case, the grid search results are as good as the Bayesian optimization scheme. This GP, however, allows for visualization of the shape of the objective function such as fig \ref{fig:gp} and in the appendix where common sense choices such as \(p\sim 40\pro \) and a fairly high amount of hidden neurons are suggested as a maximum. From the other appendix visualizations, the other acqusition functions show a more exploitative approach than the expected improvement.
 
-\section{References}
-\url{https://gpyopt.readthedocs.io/en/latest/index.html}
+As each training only consisting of ten epochs, the effect of the hyper parameters might not have enough time to influence the accuracy for the smoothness assumption to be strong enough for the GP to be accurate after twelve data pints.  This short amount of training time also results in the optimization having to find parameters that make VGG16 converge fast which might not generally be optimal way of finding the best parameters for a larger training session. It is thus an interesting task to scale this experiment to a large training session. 
+
+
+\section{Learning outcome}
+
+Though better performance of Bayesian optimization could not be shown, the project results in experience in using a well-defined hyper parameter searching scheme. It is learned that for setting up such a scheme, the convergence of a practical uncertanty estimation, in this case the GP, is key as factors such as lengthscale normalization were important for getting sensible results. From the visualizations, it was learned that consideration of the explotation/exploration tradeoff must be factor into the choice of acqusition method.
+
+The promising method of exploring parts of a complex parameter space compared to a tabulated search makes Bayesian optimization an important part of the model fitting toolbox.
+
+
+\end{multicols}
+
+\begin{thebibliography}{9}
+	\bibitem{vgg} Simonya, K, Zisserman, A.: " Very Deep Convolutional Networks for Large-Scale Image Recognition.", ICLR: 2015, at: \url{https://arxiv.org/pdf/1409.1556.pdf}
+	\bibitem{cifar10} Krizhevsky, A.: "The CIFAR-10 dataset", at \url{https://www.cs.toronto.edu/~kriz/cifar.html}
+	\bibitem{gpyopt} Machine Learning Group, University of Sheffield: "GPyOpt’s documentation", at \url{https://gpyopt.readthedocs.io}
+\end{thebibliography}
+
 \section{Appendix}
 \begin{figure}[H]
 
