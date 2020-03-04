@@ -90,17 +90,17 @@ PI evaluates the objective function, \textit{f}, at the point most likely to imp
 where $\xi$ is an explore/exploit trade-off variable and $\Phi$ is the gaussian CDF.
 
 \subsubsection*{Expected Improvement (EI)}
-EI tries to quantify the improvement instead of the probability of improving as PI does. It is possible to quantify the average value of improvement if we sample the objective function at $x$. The acquisition function then computes the expected value of the improvement function at a certain x. EI is expressed as 
+EI attempts to quantify the improvement instead of the probability. The average improvement is quantified by sampling the objective function at $x$. The acquisition function then computes the expected value of the improvement function at a certain $x$. EI is expressed as 
 \begin{equation*}
 \mathrm{EI}(\mathbf{x})=\left\{\begin{array}{ll}
 \left(\mu(\mathbf{x})-f\left(\mathbf{x}^{+}\right)\right) \Phi(Z)+\sigma(\mathbf{x}) \phi(Z) & \text { if } \sigma(\mathbf{x})>0 \\
 0 & \text { if } \sigma(\mathbf{x})<0,
 \end{array}\right. 
 \end{equation*}
-where $ Z = \frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi }{\sigma(\mathbf{x})}$ \newline 
+where $ Z = \frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi }{\sigma(\mathbf{x})}$. \newline 
 
 \subsubsection*{Gaussian Process Upper Confidence Bound(GP-UCB)}
-The idea behind GP-UCB is to directly use the mean and variance from the Gaussian distribution. These two parameters are used as the exploration / exploitation trade off. The function is given as
+GP-UCB uses the predictive mean and standard deviation from the Gaussian distribution directly to guide the exploration. The function is given as
 \begin{equation*}
 UCB(x) = \mu(x) + \kappa \sigma(x),
 \end{equation*}
