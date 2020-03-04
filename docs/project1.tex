@@ -109,10 +109,10 @@ Where $ \kappa $ controls the explore/exploit trade-off. \newline
 
 \subsection*{Grid Search}
 
-Grid search is the most common and hands-on way to perform hyperparameter tuning. It works by exploring the whole parameter space through exhaustive search. In this project grid search explores the following parameters:\\
+Grid search is a commonplace way of performing hyperparameter tuning by exhaustively searching the parameter space. In this project, grid search explores these parameters:\\
 	\indent \indent \texttt{hidden = np.array([100,2000,4000]) ; drop = np.array([0.33, 0.66])\\
  \indent \indent activ\_func = {Tanh, ReLU, ReLU6, Sigmoid} } \\
-Grid search is implemented as a triple for loop, which constructs 12 different models. The loop runs through the hidden units, the dropout values and chooses an activation function at random. 
+This implementation constructs 12 models, which is the same amount as the number of GP iterations. 
 
 \section{Results}
 
@@ -131,7 +131,8 @@ Grid search is implemented as a triple for loop, which constructs 12 different m
 
 	\includegraphics[width=\textwidth]{EIGP}	
 
-\caption{The Gaussian process fitted to the twelve accuracy points acquired by the expected improvement function. It is clear that especially the sixth iteration of the grid search happens to hit points where the GP finds accuracy peaks. The other GP visualizations can be seen in the appendix.}
+\caption{The Gaussian process fitted to the twelve accuracy points acquired by the expected improvement function. The other GP visualizations can be seen in the appendix.}
+%It is clear that especially the sixth iteration of the grid search happens to hit points where the GP finds accuracy peaks. 
 \end{figure}
 \section{Discussion}
 %In this section you interpret your findings and describe why they are important and how they fit in with
