@@ -73,10 +73,10 @@ In this paper, Bayesian optimization with Gaussian processes as probabilistic mo
 
 
 \section{Methods}
-Bayesian optimization of hyperparameters is done by building a probabilistic model of the objective function and then using these probabilities to select the most promising values of hyperparameters to evaluate the true objective function on. After more and more evaluations, the surrogate model will become an increasingly better approximation of the true function. 
+Bayesian optimization of hyperparameters is done by building a probabilistic model of the objective function and then using these probabilities to select the most likely values of hyperparameters to evaluate the true objective function on. After more and more evaluations, the surrogate model will become an increasingly better approximation of the true function. 
 
 \subsection*{Gaussian Process}
-In Bayesian optimization, Gaussian Processes (GPs) are used as a non-parametric approach to finding the distribution distribution over functions that are still consistent with the observed data. 
+In Bayesian optimization, Gaussian Processes (GPs) are used as a non-parametric approach to finding the distribution distribution over functions that are still consistent with the observed data. Hence, the mean of this distribution will be the most probable fit of the data. It should be noted that GPs assume smoothness of the data, meaning that if $x_1$ produces $y_1$, a point $x_2$ close to $x_1$ should produce a $y_2$ close to $y_1$. 
 
 \subsection*{Acquisition Functions}
 In the following section three different acquisition functions will be presented. All of these acquisition functions are implemented by using the GPyOpt library. \newline
