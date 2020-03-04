@@ -81,13 +81,13 @@ In Bayesian optimization, Gaussian Processes (GPs) are used as a non-parametric 
 \subsection*{Acquisition Functions}
 
 \subsubsection*{Probability of Improvement (PI)}
-PI evaluates the objective function,\textit{f}, at the point most likely to improve the minimum value. In this project, the objective function returns the negative validation accuracy. PI then evaluates at the point most likely to obtain a higher accuracy, since the the function is given the negative accuracy. Mathematically, PI can be expressed as
+PI evaluates the objective function, \textit{f}, at the point most likely to improve the minimum value. In this project, PI evaluates at the point most likely to obtain a higher accuracy, since the function is given the negative accuracy. PI is evaluated by
 \begin{equation*}
 	\text{PI}(\mathbf{x}) = \text{P}(f(\mathbf{x}) \geq f(\mathbf{x}^+) + \xi) 
 	= \Phi\biggl(\frac{\mu(\mathbf{x}) - f(\mathbf{x}^+) - \xi}{\sigma(\mathbf{x})}\biggr),
 \end{equation*}
 \noindent
-where $\xi$ represents a trade-off between exploration and exploitation and $\Phi$ is the cumulative distribution function of the Gaussian distribution.
+where $\xi$ is an explore/exploit trade-off variable and $\Phi$ is the gaussian CDF.
 
 \subsubsection*{Expected Improvement (EI)}
 EI tries to quantify the improvement instead of the probability of improving as PI does. It is possible to quantify the average value of improvement if we sample the objective function at $x$. The acquisition function then computes the expected value of the improvement function at a certain x. EI is expressed as 
