@@ -39,9 +39,9 @@
 
 
 \section{Introduction} 
-Development of effective machine learning models has spawned a vision of generalizable machine intelligence, which can replace slower and more erroneous human work in many fields. While this generalizability is often true, the popular deep models have at least one obvious issue that requires domain knowledge, skill and large amounts of computing power to overcome; hyperparameter optimization. Optimizing the hyperparameters can usually devolve into random guessing or extensive sampling from a large parameter space. Bayesian Optimization guides this by modeling the parameter space, explicitly reducing the guessing and limiting the size of the search involved in finding the parameters with use of an acquisition function and probabilistic model.
+Development of effective machine learning models has spawned a vision of generalizable machine intelligence, which can replace slower and more erroneous human work in many fields. While this generalizability is often true, the popular deep models have at least one obvious issue that requires domain knowledge, skill and large amounts of computing power to overcome; hyperparameter optimization. Optimizing the hyperparameters can usually devolve into expert experience, biased heuristics or extensive sampling from a large parameter space. Bayesian Optimization guides this by modeling the parameter space, explicitly reducing the guessing and limiting the size of the search involved in finding the parameters with the use of an acquisition function and probabilistic model.
 
-In this project, Baysian optimization with Gaussian processes as probabilistic model will be used to optimize the hyperparameters for training the VGG16 network on the CIFAR10 image classification data set thus gaining experience with the method and comparing it to simple grid search.
+In this project, Baysian optimization with Gaussian processes as probabilistic model will be used to optimize the hyperparameters for training the VGG16 network on the CIFAR10 image classification data set thus gaining experience with the method and comparing it to a simple grid search.
 \vspace*{-0.3cm}
 \section{Methods}
 \vspace*{-0.2cm}
@@ -112,9 +112,9 @@ The results found in this study does not fit in with what other researches have 
 \vspace*{-0.3cm}
 \section{Learning outcome}
 
-Though better performance of Bayesian optimization could not be shown, the project yielded experience in using a well-defined hyperparameter searching scheme. It has become obvious that for setting up such a scheme, the convergence of the GP is key, as factors such as lengthscale normalization were important for getting sensible results. From the visualizations, it was learned that consideration of the explotation/exploration trade-off must be factored into the choice of acqusition method.
+Though better performance of Bayesian optimization could not be shown, the project yielded experience in using a well-defined hyperparameter searching scheme. It has become obvious that for setting up such a scheme, the convergence of the GP is key, as factors such as lengthscale normalization were important for getting sensible results. From the visualizations, it was learned that consideration of the exploitation/exploration trade-off must be factored into the choice of the acquisition function.
 
-The promising method of exploring parts of a complex parameter space instead of an exhaustive search makes Bayesian optimization an important part of the model fitting toolbox.
+The promising method of exploring parts of a complex parameter space instead of an exhaustive search or expert knowledge makes Bayesian optimization an important part of the model fitting toolbox.
 
 
 \end{multicols}
