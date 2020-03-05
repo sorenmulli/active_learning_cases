@@ -10,32 +10,17 @@
 
 
 
-\title{\vspace*{-3.5cm}Bayesian Optimization for Hyperparameter Tuning in The Fully Connected Layers of VGG16}
+\title{\vspace*{-3.75cm}Bayesian Optimization for Hyperparameter Tuning in The Fully Connected Layers of VGG16}
 \author{Søren Winkel Holm\and Oskar Wiese\and Anders Henriksen\and Anne Agathe Pedersen}
 \date{\today}
 
-\fancypagestyle{plain}
-{
-	\fancyhf{}
-	\rfoot{Page \thepage{} of  \pageref{LastPage}}
-	\renewcommand{\headrulewidth}{0pt}
-}
-%\pagestyle{fancy}
-%\fancyhf{}
-%\lhead{Lala}
-%\chead{}
-%\rhead{}
-%\rfoot{Page \thepage{} of \pageref{LastPage}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Bayesian Optimization for Hyperparameter Tuning in The Fully Connected Layers of VGG16}
+\rfoot{Page \thepage{} of \pageref{LastPage}}
 
 \graphicspath{{imgs/}}
-\usepackage{float}
-\usepackage[caption = false]{subfig}
-%\linespread{1.15}
-
-%TODO: \numberwithin{equation}{section}
-%TODO: \numberwithin{footnote}{section}
-%TODO: \numberwithin{figure}{section}
-%TODO: \numberwithin{table}{section}
 
 \begin{document}
 
@@ -46,7 +31,7 @@
 %\tableofcontents
 
 \begin{abstract}
-\noindent Optimization of neural network hyper parameters is a costly process of uncertainty balancing exploration of parameters and exploitation of known results. This experiment compares Bayesian Optimization using Gaussian Processes to  simple grid search for finding the optimal hyperparameters for the fully-connected layers of the VGG16 image classification deep convolutional network. The success of the training is compared for three different acquisitions functions. Little difference is found which could be a result of the limited scope of the network training but the Bayesian Optimization method allows for a visualization of the estimated model accuracy on the hyper parameter space.
+\noindent Optimization of neural network hyperparameters is a costly process of uncertainty balancing exploration of parameters and exploitation of known results. This experiment compares Bayesian Optimization using Gaussian Processes to  simple grid search for finding the optimal hyperparameters for the fully-connected layers of the VGG16 image classification deep convolutional network. The success of the training is compared for three different acquisitions functions. Little difference is found which could be a result of the limited scope of the network training but the Bayesian Optimization method allows for a visualization of the estimated model accuracy on the hyperparameter space.
 
 \end{abstract}
 
@@ -75,11 +60,11 @@ The GP operates using the smoothness assumption on the network outputs, and its 
 From this probabilistic model, three different acquisition functions, that chooses parameters for next training and balances exploration and exploitation, are compared:
 
 \begin{itemize}
-	\item \textbf{Expected Improvement (EI)} maximizing the accuracy improvement for each possible hyper parameter
+	\item \textbf{Expected Improvement (EI)} maximizing the accuracy improvement for each possible hyperparameter
 	\item \textbf{Maximum Probability of Improvement (MPI)} training the network with the parameters most likely to obtain a higher accuracy
 	\item \textbf{Upper Confidence Bound(UCB)} Using the mean and standard deviation from the GP directly to guide the exploration
 \end{itemize}
-The Bayesian optimization is started by sampling five random points from the objective function, fitting the GP to these and iteratively surveying the next 7 points in the hyperparameter space using the GP and the acqusistion function. This is done for each acqusition function together with a grid search of equally spaced point in the chosen hyper parameter domain, resulting in \(4\times12\) iterations over the network. The optimization is performed by the GPyOpt library \cite{gpyopt} with the  explore/exploit trade-off variable set to 0.01.
+The Bayesian optimization is started by sampling five random points from the objective function, fitting the GP to these and iteratively surveying the next 7 points in the hyperparameter space using the GP and the acqusistion function. This is done for each acqusition function together with a grid search of equally spaced point in the chosen hyperparameter domain, resulting in \(4\times12\) iterations over the network. The optimization is performed by the GPyOpt library \cite{gpyopt} with the  explore/exploit trade-off variable set to 0.01.
 
 For each method, the optimal parameters are stored and a network is trained and evaluated on the test set of 10000 images.
 
@@ -121,7 +106,7 @@ The differences in accuracies between the model proposed by the Bayesian optimiz
 
 Each training only consisting of ten epochs, so the effect of the hyperparameters might not have enough time to influence the accuracy. This could result in a weak smoothness assumption and therefore a GP that might not be accurate enough after twelve data points. This short amount of training time also results in the optimization having to find parameters that make VGG16 converge fast, which might not generally be an optimal way of finding the best parameters for a larger training session. It is thus an interesting task to scale this experiment to a large training session or implementing the number of epochs as a tunable hyper-parameter.  
 
-The results found in this study does not fit in with what other researches have found. Other studies have found that BO find state of the art hyperparameters for several different Machine Learning algorithms. \cite{baylearn, baylearn2} 
+The results found in this study does not fit in with what other researches have found. Other studies have found that BO finds state of the art hyperparameters for several different models on the CIFAR10 dataset. \cite{baylearn, baylearn2} 
 
 %As each training only consisting of ten epochs, the effect of the hyperparameters might not have enough time to influence the accuracy for the smoothness assumption to be strong enough for the GP to be accurate after twelve data points.
 \vspace*{-0.3cm}
