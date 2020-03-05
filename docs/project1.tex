@@ -57,7 +57,7 @@
 Development of effective machine learning models has spawned a vision of generalizable machine intelligence, which can replace slower and more erroneous human work in many fields. While this generalizability is often true, the popular deep models have at least one obvious issue that requires domain knowledge, skill and large amounts of computing power to overcome; hyperparameter optimization. Optimizing the hyperparameters can usually devolve into random guessing or extensive sampling from a large parameter space. Bayesian Optimization guides this by modeling the parameter space, explicitly reducing the guessing and limiting the size of the search involved in finding the parameters with use of an acquisition function and probabilistic model.
 
 In this project, Baysian optimization with Gaussian processes as probabilistic model will be used to optimize the hyperparameters for training the VGG16 network on the CIFAR10 image classification data set thus gaining experience with the method and comparing it to simple grid search.
-
+\vspace*{-0.6cm}
 \section{Methods}
 \texttt{All code available at \url{github.com/sorenmulli/active_learning_cases}}
 
@@ -106,7 +106,7 @@ For each method, the optimal parameters are stored and a network is trained and 
 \end{figure}
 
 \begin{multicols}{2}
-
+\vspace*{-1.6cm}
 \section{Discussion}
 %In this section you interpret your findings and describe why they are important and how they fit in with
 %other research. You can also mention ways your study could have been improved and future areas of
@@ -117,7 +117,9 @@ For each method, the optimal parameters are stored and a network is trained and 
 
 The differences in accuracies between the model proposed by the Bayesian optimization models and grid search are very small \(\delta \sim 1\pro \) and convincing statistical significance is not expected. In this case, the grid search results are as good as the Bayesian optimization scheme. This GP, however, allows for visualization of the shape of the objective function such as fig \ref{fig:gp} and in the appendix, where common sense choices such as \(p\sim 40\pro \) and a fairly high amount of hidden neurons are suggested as a maximum. From the other appendix visualizations, the other acqusition functions show a more exploitative approach than the expected improvement.
 
-Each training only consisting of ten epochs, so the effect of the hyperparameters might not have enough time to influence the accuracy. This could result in a weak smoothness assumption and therefore a GP that might not be accurate enough after twelve data points. This short amount of training time also results in the optimization having to find parameters that make VGG16 converge fast, which might not generally be an optimal way of finding the best parameters for a larger training session. It is thus an interesting task to scale this experiment to a large training session. 
+Each training only consisting of ten epochs, so the effect of the hyperparameters might not have enough time to influence the accuracy. This could result in a weak smoothness assumption and therefore a GP that might not be accurate enough after twelve data points. This short amount of training time also results in the optimization having to find parameters that make VGG16 converge fast, which might not generally be an optimal way of finding the best parameters for a larger training session. It is thus an interesting task to scale this experiment to a large training session or implementing the number of epochs as a tunable hyper-parameter.  
+
+The results found in this study does not fit in with what other researches have found. Other studies have found that BO find state of the art hyperparameters for several different Machine Learning algorithms. \cite{baylearn, baylearn2} 
 
 %As each training only consisting of ten epochs, the effect of the hyperparameters might not have enough time to influence the accuracy for the smoothness assumption to be strong enough for the GP to be accurate after twelve data points.
 
@@ -134,6 +136,8 @@ The promising method of exploring parts of a complex parameter space instead of 
 	\bibitem{vgg} Simonya, K, Zisserman, A.: " Very Deep Convolutional Networks for Large-Scale Image Recognition.", ICLR: 2015, at: \url{https://arxiv.org/pdf/1409.1556.pdf}
 	\bibitem{cifar10} Krizhevsky, A.: "The CIFAR-10 dataset", at \url{https://www.cs.toronto.edu/~kriz/cifar.html}
 	\bibitem{gpyopt} Machine Learning Group, University of Sheffield: "GPyOpt’s documentation", at \url{https://gpyopt.readthedocs.io}
+	\bibitem{baylearn} Adams, Ryan P. et al: " Practical Bayesian Optimization of Machine Learning Algorithms ", 2012
+	\bibitem{baylearn2} Swersky, Kevin and Snoek, Jasper and Adams, Ryan P. : " Multi-Task Bayesian Optimization ", 2013
 \end{thebibliography}
 
 \section{Appendix}
