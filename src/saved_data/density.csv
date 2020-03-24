@@ -1,3 +1,4 @@
+Name,Density
  Macau,20550
  Monaco,18960
  Singapore,7894
@@ -22,7 +23,7 @@ Saint Martin (France),660
  Aruba (Kingdom of the Netherlands),624
  San Marino,568
  Nauru,533
- South Korea,517
+S. Korea,517
  Rwanda,470
  Comoros,469
  Saint Barthelemy (France),449
@@ -49,7 +50,7 @@ Saint Martin (France),660
  American Samoa (US),290
  Vietnam,290
  Saint Vincent and the Grenadines,284
- United Kingdom,274
+UK,274
  Pakistan,272
  Trinidad and Tobago,265
  Cayman Islands (UK),254
@@ -183,7 +184,7 @@ Saint Martin (France),660
  Mozambique,36
  Venezuela,35
  Faroe Islands (Denmark),34
- United States,34
+USA,34
  Kyrgyzstan,32
  Latvia,30
  Estonia,29
