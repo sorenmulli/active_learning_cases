@@ -11,7 +11,8 @@
 
 
 \title{\vspace*{-3.75cm}Bayesian Optimization for Hyperparameter Tuning in The Fully Connected Layers of VGG16}
-\author{Søren Winkel Holm\and Oskar Wiese\and Anders Henriksen\and Anne Agathe Pedersen}
+\author{Søren Holm Oskar Wiese, Anders Henriksen and Anne Pedersen \\
+\small {\texttt{\{s183911,s183917,s183904,s174300\}@student.dtu.dk}}}
 \date{\today}
 
 
@@ -104,7 +105,7 @@ For each of the four methods, the optimal parameters are stored and a network is
 \vspace*{-0.2cm}
 The differences in accuracies between the model proposed by the Bayesian optimization models and grid search are around \(\delta \sim 1\pro \) and statistical significance is not expected. In this case, the grid search results are approximately as good as the Bayesian optimization scheme. This GP, however, allows for visualization of the shape of the objective function, as shown in fig \ref{fig:gp} and in the appendix, where common sense choices such as \(p\sim 40\pro \) and a fairly high amount of hidden neurons are suggested as a maximum. The other acqusition functions show a more exploitative approach than the expected improvement.
 
-Each training only consisting of ten epochs, so the effect of the hyperparameters might not have enough time to influence the accuracy. This could result in a weak smoothness assumption and therefore a GP that might not be accurate enough after twelve data points. This short training time also results in the optimization having to find parameters that make VGG16 converge fast, which might not generally be an optimal way of finding the best parameters for a larger training session. Thus, it is an interesting task to scale this experiment to a large training session or to implement the number of epochs as a tunable hyper-parameter.  
+Each training only consisting of ten epochs, so the effect of the hyperparameters might not have enough time to influence the accuracy. This could result in a weak smoothness assumption and therefore a GP that might not be accurate enough after twelve data points. This short training time also results in the optimization having to find parameters that make VGG16 converge fast, which might not generally be an optimal way of finding the best parameters for a larger training session. Thus, it is an interesting task to scale this experiment to a large training session or to test for different numbers of epochs.
 
 The results found in this study does not fit with what other researches have found. Other studies conclude that BO finds state of the art hyperparameters for several different models on the CIFAR10 dataset. \cite{baylearn, baylearn2} 
 
