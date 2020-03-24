@@ -1,2 +1,149 @@
-﻿Series,Albania,Algeria,Angola,Argentina,Armenia,Australia,Austria,Azerbaijan,Bahrain,Bangladesh,Barbados,Belgium,Benin,Bhutan,Bolivia,Bosnia and Herzegovina,Botswana,Brazil,Brunei Darussalam,Bulgaria,Burkina Faso,Burundi,Cambodia,Cameroon,Canada,Cape Verde,Chad,Chile,China,Colombia,"Congo, Democratic Rep.",Costa Rica,Côte d'Ivoire,Croatia,Cyprus,Czech Republic,Denmark,Dominican Republic,Ecuador,Egypt,El Salvador,Estonia,Ethiopia,Finland,France,Gabon,"Gambia, The",Georgia,Germany,Ghana,Greece,Guatemala,Guinea,Guyana,Haiti,Honduras,Hong Kong SAR,Hungary,Iceland,India,Indonesia,"Iran, Islamic Rep.",Ireland,Israel,Italy,Jamaica,Japan,Jordan,Kazakhstan,Kenya,"Korea, Rep.",Kuwait,Kyrgyz Republic,Lao PDR,Latvia,Lebanon,Lesotho,Liberia,Lithuania,Luxembourg,North Macedonia,Madagascar,Malawi,Malaysia,Mali,Malta,Mauritania,Mauritius,Mexico,Moldova,Mongolia,Montenegro,Morocco,Mozambique,Myanmar,Namibia,Nepal,Netherlands,New Zealand,Nicaragua,Nigeria,Norway,Oman,Pakistan,Panama,Paraguay,Peru,Philippines,Poland,Portugal,Puerto Rico,Qatar,Romania,Russian Federation,Rwanda,Saudi Arabia,Senegal,Serbia,Seychelles,Sierra Leone,Singapore,Slovak Republic,Slovenia,South Africa,Spain,Sri Lanka,Suriname,Eswatini,Sweden,Switzerland,"Taiwan, China",Tajikistan,Tanzania,Thailand,Trinidad and Tobago,Tunisia,Turkey,Uganda,Ukraine,United Arab Emirates,United Kingdom,United States,Uruguay,Venezuela,Vietnam,Yemen,Zambia,Zimbabwe
-International tourist arrivals (thousands),4642.625,2451,261,6710.3899335382248,1494.779,8815.2999999999993,29460.334999999999,2454,4372,125,n/a,8358.0599999999995,281,n/a,1134,922.423,1574,6588.7700000000004,258.95499999999998,8883,143,299,5602.1559999999999,812,20794.063999999998,667.69299999999998,87,6449.8829999999998,60740,4026.9369999999999,351,2959.8690000000001,1800,15592.898999999999,3652.0729999999999,12808,11743,6187.5420000000004,1608.473,8156.579999999999,1556.0688498369118,3244.9029999999998,933,3180.6619999999998,86917.699999999997,n/a,162,4069.3539999999998,37451.508000000002,971.86099999999999,27194.183000000001,1659.597,60,n/a,467.03800000000001,851.04700000000003,27884.542999999998,15785,2224.0740000000001,15542.853999999999,12948,4867,10338,3613.1580000000004,58253.030080785204,2352.915,28691.073,3843.532726302778,4559.5,1363.864,13335.758,203,4568,3256.8460000000005,1949.5,1856.7950000000001,320,n/a,2523.3000000000002,1045.883,630.59400000000005,n/a,837,25948.458999999999,193,2273.8374446346288,30,1341.8599999999999,39290.942999999999,145.16499999999999,469.30900000000003,1877.212,11349.343999999999,1447,n/a,1499,940.21799999999996,17924,3555,1787.26,1889,6252,2372,965.49800000000005,1843.2660000000001,1559.7829999999999,4032.3389999999999,6620.9080000000004,18258,21200,n/a,2256.4899999999998,2760.0799999999999,24390,932,16108.967696640146,1365,1497.173,349.86099999999999,53.713000000000001,13907.549000000014,7620,3586.038,10285.197,81868.521999999997,2116.4070000000002,n/a,921,6864.9960000000001,11133,10739.601000000001,430.93200000000002,1275,35482.544000000002,394.64999999999998,7051.8130000000001,37602.963000000003,1402.4090000000001,14229.642,15790,37650.967281999903,76941.365000000005,3674.0600032901511,427,12922.151,366.69999999999999,1083,2423
+Name,Tourists
+Albania,4642625
+Algeria,2451
+Angola,261
+Argentina,6710.38993353822
+Armenia,1494779
+Australia,8815.3
+Austria,29460.335
+Azerbaijan,2454
+Bahrain,4372
+Bangladesh,125
+Barbados,n/a
+Belgium,8358.06
+Benin,281
+Bhutan,n/a
+Bolivia,1134
+Bosnia and Herzegovina,922423
+Botswana,1574
+Brazil,6588.77
+Brunei Darussalam,258.955
+Bulgaria,8883
+Burkina Faso,143
+Burundi,299
+Cambodia,5602.156
+Cameroon,812
+Canada,20794.064
+Cape Verde,667.693
+Chad,87
+Chile,6449.883
+China,60740
+Colombia,4026.937
+DRC,351
+Costa Rica,2959.869
+Côte d'Ivoire,1800
+Croatia,15592.899
+Cyprus,3652.073
+Czech Republic,12808
+Denmark,11743
+Dominican Republic,6187.542
+Ecuador,1608473
+Egypt,8156.58
+El Salvador,1556.06884983691
+Estonia,3244.903
+Ethiopia,933
+Finland,3180.662
+France,86917.7
+Gabon,n/a
+The Gambia,162
+Georgia,4069.354
+Germany,37451.508
+Ghana,971.861
+Greece,27194.183
+Guatemala,1659597
+Guinea,60
+Guyana,n/a
+Haiti,467.038
+Honduras,851.047
+Hong Kong SAR,27884.543
+Hungary,15785
+Iceland,2224.074
+India,15542.854
+Indonesia,12948
+Iran,4867
+Ireland,10338
+Israel,3613.158
+Italy,58253.0300807852
+Jamaica,2352915
+Japan,28691073
+Jordan,3843.53272630278
+Kazakhstan,4559.5
+Kenya,1363864
+S. Korea,13335758
+Kuwait,203
+Kyrgyz Republic,4568
+Lao PDR,3256.846
+Latvia,1949.5
+Lebanon,1856.795
+Lesotho,320
+Liberia,n/a
+Lithuania,2523.3
+Luxembourg,1045883
+North Macedonia,630.594
+Madagascar,n/a
+Malawi,837
+Malaysia,25948.459
+Mali,193
+Malta,2273.83744463463
+Mauritania,30
+Mauritius,1341.86
+Mexico,39290.943
+Moldova,145.165
+Mongolia,469.309
+Montenegro,1877212
+Morocco,11349.344
+Mozambique,1447
+Myanmar,n/a
+Namibia,1499
+Nepal,940.218
+Netherlands,17924
+New Zealand,3555
+Nicaragua,1787.26
+Nigeria,1889
+Norway,6252
+Oman,2372
+Pakistan,965.498
+Panama,1843.266
+Paraguay,1559.783
+Peru,4032.339
+Philippines,6620.908
+Poland,18258
+Portugal,21200
+Puerto Rico,n/a
+Qatar,2256.49
+Romania,2760.08
+Russian Federation,24390
+Rwanda,932
+Saudi Arabia,16108.9676966401
+Senegal,1365
+Serbia,1497173
+Seychelles,349.861
+Sierra Leone,53.713
+Singapore,13907.549
+Slovak Republic,7620
+Slovenia,3586038
+South Africa,10285197
+Spain,81868.522
+Sri Lanka,2116.407
+Suriname,n/a
+Eswatini,921
+Sweden,6864.996
+Switzerland,11133
+Taiwan,10739.601
+Tajikistan,430.932
+Tanzania,1275
+Thailand,35482.544
+Trinidad and Tobago,394.65
+Tunisia,7051.813
+Turkey,37602.963
+Uganda,1402.409
+Ukraine,14229642
+United Arab Emirates,15790
+UK,37650.9672819999
+USA,76941.365
+Uruguay,3674.06000329015
+Venezuela,427
+Vietnam,12922151
+Yemen,366.7
+Zambia,1083
+Zimbabwe,2423
