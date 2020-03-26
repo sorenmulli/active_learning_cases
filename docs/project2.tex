@@ -3,21 +3,22 @@
 
 
 \usepackage[english]{babel}
+\usepackage{amsmath}
 
 \usepackage{texfiles/SpeedyGonzales}
 \usepackage{texfiles/MediocreMike}
 \usepackage{multicol}
 
 
-\title{\vspace*{-3.75cm}Bayesian Optimization for Hyperparameter Tuning in The Fully Connected Layers of VGG16}
-\author{Søren Holm Oskar Wiese, Anders Henriksen and Anne Pedersen \\
+\title{\vspace*{-3.75cm}Title}
+\author{Søren Holm, Oskar Wiese, Anders Henriksen and Anne Pedersen \\
 	\small {\texttt{\{s183911,s183917,s183904,s174300\}@student.dtu.dk}}}
 \date{\today}
 
 
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{Bayesian Optimization for Hyperparameter Tuning in The Fully Connected Layers of VGG16}
+\lhead{Title}
 \rfoot{Page \thepage{} of \pageref{LastPage}}
 
 \graphicspath{{imgs/}}
@@ -25,39 +26,66 @@
 \begin{document}
 	
 	\maketitle
+	 
 	
-	%\tableofcontents
-	%\thispagestyle{fancy}
-	%\tableofcontents
-	
-	\begin{abstract}
+	\begin{abstract} %TODO: Write section
 		
 	\end{abstract}
 	
-	%\begin{multicols}{2}
+	\begin{multicols}{2}
 		
 		
-		\section{Introduction} 
+		\section{Introduction} %TODO: Add something about GP
+		The novel corona virus COVID-19 has affected the lives of billions of people all around the world. This project has collected a dataset of different measures for each country and then uses uncertainty sampling to classify countries by the number of COVID-19 related fatalities. Lastly we compare different ways of sampling to find the one that gets a satisfying accuracy the fastest. Our initial hypothesis is that margin sampling performs better than the other samplers due to the relatively small amount of classes. 
 		
-		In this project a data-set has been constructed from several different sources \cite{density, corona, alder, bnp, region, healthcare, turist}. For each country with at least one fatality due to corona the county's gross domestic product (GDP) per capita, population density per square kilometer, world region, average age, healthcare index, number of tourists per year in thousands and the population count has been collected. The purpose of the constructed model in this project is to classify whether the number of deaths in a country is low, medium, high or extreme.
+		\section{Data} 
+		Our dataset was constructed from several different sources \cite{density, corona, alder, bnp, region, healthcare, turist}. For each country in the world with at least one COVID-19 related fatality, we collected eight features; the country's GDP per capita, population density per km$^2$, world region, median age of the population, index of quality of healthcare system, number of tourists per year in thousands, and the population count. These features were used to classify the countries by amount of deaths. 30 \% of the data was used for testing, while the remaining 70 \% was used for training. %TODO: Update data split
 
 		\section{Methods}
-			
-			\texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}}
+		\subsection{Gaussian process} %TODO: Write section
+		A Gaussian process was first used in order to estimate uncertainty...
 		
-	%\end{multicols}
-
-	\section{Results}
 		
-	%\begin{multicols}{2}
+		\subsection{Pool-based sampling}
+		Pool-based sampling is a cycle of the learner getting a labeled dataset, training the model and then evaluating on an unlabeled test set. The labels subset of the unlabeled pool that the learner was most uncertain about are then queried and the samples are added to the training set. Then the cycle repeats until the model reaches a satisfying level of accuracy.  
+		
+		\subsection{Uncertainty sampling}
+		There are different ways for a learner to query for labels from the unlabeled pool. This project implements uncertainty sampling, which uses a model to estimate the uncertainty of its predicted labels and then queries the data with the most uncertainty. Since this is a multi-class classification problem, there are different approaches to determining $x^*$; these include least confident, margin sampling and entropy. 
+		
+		\textbf{Least confident} identifies the datapoint with the lowest probability for its most likely label as
+		
+		$$x^*=\underset{x\in U}{\text{argmax}}(1-p_\theta(\hat{y}|x))$$ 
+		
+		where $x$ is each datapoint in the unlabeled pool $U$, and $\hat{y}=\underset{y\in Y}{\text{argmax}}(p_\theta(y|x))$ is the probability of the most likely label. 
+		
+		\textbf{Margin sampling} also takes into account the the second most likely label of $x$, $\hat{y}_2$ and then queries the datapoint with the smallest difference between $\hat{y}_1$ and $\hat{y}_2$:
+		
+		$$x^*=\underset{x\in U}{\text{argmin}}(p_\theta(\hat{y}_1|x)-p_\theta(\hat{y}_2|x))$$
+		
+		In theory, this would work well for a small number of labels. 
+		
+		\textbf{Entropy}, on the other hand, uses the full distribution of the labels and is therefore good for classification problems with a large number of labels:
+		
+		$$x^*=\underset{x\in U}{\text{argmax}}\left(-\sum_{y\in Y}p_\theta(y|x)\log p_\theta(y|x)\right)$$
+		 
+		This project compares the performance of least confident, margin sampling and entropy on this specific classification problem. 
+		 
+			
 
-		\section{Discussion}
+	\section{Results} %TODO: Write section
+		
+
+		\section{Discussion} %TODO: Write section
 			
-		\section{Learning outcome}
+		\section{Learning outcome} %TODO: Write section
 			
-	%\end{multicols}
-	
+	\end{multicols}
+
+\newpage
+\texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}}
 	\begin{thebibliography}{9}
+	
+	
 		
 		\bibitem{density} Wikipedia contributors: "List of countries and dependencies by population density", Date of last revision: 22 March 2020 15:25 UTC. Visited at,  \url{ https://en.wikipedia.org/w/index.php?title=List_of_countries_and_dependencies_by_population_density&oldid=946809073}
 		
@@ -79,7 +107,7 @@
 		
 	\end{thebibliography}
 	
-	\section{Appendix}
+	%\section{Appendix}
 	
 	
 \end{document}
