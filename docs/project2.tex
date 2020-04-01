@@ -29,7 +29,7 @@
 	 
 	
 	\begin{abstract} %TODO: Write section
-		\noindent COVID-19 has recently affected the life of every human being on earth. The aim of this project is to train a model to classify a country as low, medium or high; ranked after the number of COVID-19 fatalities. The model is trained with three different uncertainty sampling methods; Least confident, Marginal and Entropy. The methods were compared but no difference between the uncertainty sampling techniques where found. However, this may be due to an imbalanced data-set or the need for more complex variables to classify corona infected countries number of COVID-19 fatalities.
+		\noindent COVID-19 has recently affected the life of every human being on earth. The aim of this project is to train a model to classify a country as low, medium or high; ranked after the number of COVID-19 fatalities. The model is trained with three different uncertainty sampling methods; Least confident, Marginal and Entropy. The methods were compared but no difference between the uncertainty sampling techniques where found. However, this may be due to an imbalanced data-set or the need for more complex variables to classify corona-infected countries' number of COVID-19 fatalities.
 	\end{abstract}
 	
 	\begin{multicols}{2}
@@ -43,10 +43,7 @@
 
 		\section{Methods}
 		\texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
-		A gaussian process classifier has been implemented to predict on the training set, using uncertainty sampling for pool-based sampling.
-
-		Pool-based sampling is a cycle of the learner getting a labeled dataset, training the model and then evaluating on an unlabeled test set. The labels subset of the unlabeled pool that the learner was most uncertain about are then queried and the samples are added to the training set. Then the cycle repeats until the model reaches a satisfying level of accuracy.  
-		
+		A gaussian process classifier has been implemented to predict on the training set, using uncertainty sampling for pool-based sampling. Pool-based sampling increases accuracy and reduces cost of data query by repeatedly training a model on a pool of the data, testing on unlabeled data and then growing the pool with the datapoints the model is most uncertain about. \\\\
 		For the uncertainty sampling, least confident, margin sampling, entropy and random sampling have been used as uncertainty measures.
 		
 		\begin{itemize}
@@ -54,13 +51,13 @@
 			\item \textbf{Margin} sampling samples the points with the smallest difference between the two most likely labels.
 			\item \textbf{Entropy} samples the points which have the maximum negative value over the likelyhood of the label times the log of the likelyhood of the label, summed over each label.
 			\item \textbf{Random Sampling} samples datapoints randomly from the pool.
-		\end{itemize}
-		 
+		\end{itemize} 
+		
 		The project aims to compare the performance of least confident, margin sampling and entropy on the proposed classification problem. 
 		 
 	\end{multicols}		
 
-	\section{Results} %TODO: Write section
+	\section{Results}
 			\begin{figure}[H]
 			\centering
 			\begin{minipage}{.5\textwidth}
