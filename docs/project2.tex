@@ -38,19 +38,16 @@
 		\section{Introduction} %TODO: Add something about GP
 		The novel corona virus COVID-19 has affected the lives of billions of people all around the world. This project has collected a dataset of different measures for each country and then uses uncertainty sampling to classify countries by the number of COVID-19 related fatalities. Lastly we compare different ways of sampling to find the one that gets a satisfying accuracy the fastest. Our initial hypothesis is that margin sampling performs better than the other samplers due to the relatively small amount of classes. 
 		
-		\section{Data} 
-		Our dataset was constructed from several different sources \cite{density, corona, alder, bnp, region, healthcare, turist}. For each country in the world with at least one COVID-19 related fatality, we collected eight features; the country's GDP per capita, population density per km$^2$, continent, median age of the population, index of quality of healthcare system, number of tourists per year in thousands, and the population count. These features were used to classify the countries by number of fatalities. 60 \% of the data was used for training, while the remaining 40 \% was used for testing.
+		\section{Data}
+		The dataset was constructed from several different datasets \cite{density, corona, alder, bnp, region, healthcare, turist}. For each country in the world with at least one COVID-19 related fatality, we collected eight features; the country's GDP per capita, population density per km$^2$, continent, median age of the population, index of quality of healthcare system, number of tourists per year in thousands, and the population count. These features were used to classify the countries by number of fatalities in three classes. 60 \% of the data was used for training, while the remaining 40 \% was used for testing. %TODO: define classes
 
 		\section{Methods}
-		\subsection{Gaussian process} %TODO: Write section
-		A Gaussian process was first used in order to estimate uncertainty...
-		
-		
-		\subsection{Pool-based sampling}
+		\texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
+		A gaussian process classifier has been implemented to predict on the training set, using uncertainty sampling for pool-based sampling.
+
 		Pool-based sampling is a cycle of the learner getting a labeled dataset, training the model and then evaluating on an unlabeled test set. The labels subset of the unlabeled pool that the learner was most uncertain about are then queried and the samples are added to the training set. Then the cycle repeats until the model reaches a satisfying level of accuracy.  
 		
-		\subsection{Uncertainty sampling}
-		There are different ways for a learner to query for labels from the unlabeled pool. This project implements uncertainty sampling, which uses a model to estimate the uncertainty of its predicted labels and then queries the data with the most uncertainty. Since this is a multi-class classification problem, there are different approaches to determining $x^*$; these include least confident, margin sampling and entropy and random sampling. 
+		For the uncertainty sampling, least confident, margin sampling, entropy and random sampling have been used as uncertainty measures.
 		
 		\begin{itemize}
 			\item \textbf{Least confident} samples the datapoints from the pool with the lowest probability for their most likely label.
@@ -97,7 +94,6 @@
 	\end{multicols}
 
 \newpage
-\texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}}
 	\begin{thebibliography}{9}
 	
 	
