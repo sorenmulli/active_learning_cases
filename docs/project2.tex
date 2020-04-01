@@ -16,108 +16,110 @@
 
 \title{\vspace*{-3.75cm} Using Active Learning for Classification of Contries' COVID-19 Fatalities}
 \author{Søren Holm, Oskar Wiese, Anders Henriksen and Anne Pedersen \\
-	\small {\texttt{\{s183911,s183917,s183904,s174300\}@student.dtu.dk}}}
+\small {\texttt{\{s183911,s183917,s183904,s174300\}@student.dtu.dk}}}
 \date{\today}
 
 
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{Using Active Learning for Classification of Contries' COVID-19 Fatalities}
+\lhead{Active Learning for Classification of Contries' COVID-19 Fatalities}
 \rfoot{Page \thepage{} of \pageref{LastPage}}
 \graphicspath{{imgs/}}
 
 \begin{document}
-	
-	\maketitle
-	 
-	\begin{abstract} %TODO: Write section
-		\noindent COVID-19 has recently affected the life of every human being on earth. The aim of this project is to train a model to classify a country as low, medium or high; ranked after the number of COVID-19 fatalities. The model is trained with three different uncertainty sampling methods; Least confident, Marginal and Entropy. The methods were compared but no difference between the uncertainty sampling techniques where found. However, this may be due to an imbalanced data-set or the need for more complex variables to classify corona-infected countries' number of COVID-19 fatalities.
-	\end{abstract}
-	
-	\begin{multicols}{2}
-		
-		
-		\section{Introduction} %TODO: Add something about GP
-		The novel corona virus COVID-19 has affected the lives of billions of people all around the world. This project has collected a dataset of different measures for each country and then uses uncertainty sampling to classify countries by the number of COVID-19 related fatalities. Lastly we compare different ways of sampling to find the one that gets a satisfying accuracy the fastest. Our initial hypothesis is that margin sampling performs better than the other samplers due to the relatively small amount of classes. 
-		
-		\section{Data}
-		The dataset was constructed from several different datasets \cite{density, corona, alder, bnp, region, healthcare, turist}. For each country in the world with at least one COVID-19 related fatality, we collected eight features; the country's GDP per capita, population density per km$^2$, continent, median age of the population, index of quality of healthcare system, number of tourists per year in thousands, and the population count. These features were used to classify the countries by number of fatalities in three classes. 60 \% of the data was used for training, while the remaining 40 \% was used for testing. %TODO: define classes
 
-		\section{Methods}
-		\texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
-		A gaussian process classifier has been implemented to predict on the training set, using uncertainty sampling for pool-based sampling. Pool-based sampling increases accuracy and reduces cost of data query by repeatedly training a model on a pool of the data, testing on unlabeled data and then growing the pool with the datapoints the model is most uncertain about. \\\\
-		For the uncertainty sampling, least confident, margin sampling, entropy and random sampling have been used as uncertainty measures.
-		
-		\begin{compactitem}
-			\item \textbf{Least confident} samples the datapoints from the pool with the lowest probability for their most likely label.
-			\item \textbf{Margin} sampling samples the points with the smallest difference between the two most likely labels.
-			\item \textbf{Entropy} samples the points which have the maximum negative value over the likelyhood of the label times the log of the likelyhood of the label, summed over each label.
-			\item \textbf{Random Sampling} samples datapoints randomly from the pool.
-		\end{compactitem}
-		 
-	\end{multicols}		
+\maketitle
 
-	\section{Results}
-			\begin{figure}[H]
+\begin{abstract} %TODO: Write section
+	\noindent COVID-19 has recently affected the life of every human being on earth. A Gaussian Procceses were fitted to classify a country as low, medium or high; ranked after the number of COVID-19 fatalities. The aim of the project is to compare sampling of data points from a pool of 58 countries  with three different uncertainty sampling methods; Least confident, Marginal and Entropy. The methods were compared but no difference between the uncertainty sampling techniques could be shown. However, this may be due to class imbalances during sampling of this three-class setup or the need for better explaining variables to classify corona-infected countries' number of COVID-19 fatalities.
+\end{abstract}
+
+\begin{multicols}{2}
+	
+	
+	\section{Introduction} %TODO: Add something about GP
+	The novel corona virus COVID-19 has affected the lives of billions of people all around the world. This project has collected a data-set of different measures for each country and then uses uncertainty sampling to classify countries by the number of COVID-19 related fatalities. Lastly we compare different ways of sampling to find the one that gets a satisfying accuracy the fastest. Our initial hypothesis was that entropy sampling performs better by using the entire class distribution but some worries were had for outliers in this small data set with many, noisy explaining variables. 
+	
+	\section{Data}
+	The dataset was constructed from several different datasets cited as \cite{density, corona, alder, bnp, region, healthcare, turist}. For each country in the world with at least one COVID-19 related fatality as of Marc 27 when \cite{corona} was collected, we collected seven features; the country's GDP per capita, population density per km$^2$, continent, median age of the population, index of quality of healthcare system and number of tourists per year per million inhabitants. 58 countries had data for all these an were used. These features were used to classify the countries by number of fatalities in three classes of equal size. 60 \% of the data was used for training, while the remaining 40 \% was used for testing. %TODO: define classes
+
+	\section{Methods}
+	\texttt{Code and data set available at \url{github.com/sorenmulli/active_learning_cases}} \newline
+	A Gaussian Process (GP) classifier was implemented to predict on the training set, using uncertainty sampling for pool-based sampling. For the GP, a Matérn$\frac{5}{2}$-kernel was used and log likelihood hyper parameter optimization was carried out. Pool-based sampling increases accuracy and reduces cost of data query by repeatedly training a model on a pool of the data, testing on unlabeled data and then growing the pool with the data points the model is most uncertain about. 
+
+	For the uncertainty sampling, least confident, margin sampling, entropy and random sampling were used as uncertainty measures.
+	
+
+	\begin{compactitem}
+		\item \textbf{Least confident} samples the datapoints from the pool with the lowest probability for their most likely label.
+		\item \textbf{Margin} sampling samples the points with the smallest difference between the two most likely labels.
+		\item \textbf{Entropy} samples the points which have the maximum negative value over the likelyhood of the label times the log of the likelyhood of the label, summed over each label.
+		\item \textbf{Random Sampling} samples datapoints randomly from the pool.
+	\end{compactitem}
+		Initially, labels of three countries, one in each class, were given and the experiment allowed the learner to query iteratively until all 34 pool labels were given. The test accuracy was noted for each iteration and used as the metric for comparison.
+\end{multicols}		
+
+\section{Results}
+		\begin{figure}[H]
+		\centering
+		\begin{minipage}{.5\textwidth}
 			\centering
-			\begin{minipage}{.5\textwidth}
-				\centering
-				\includegraphics[width=\linewidth]{../src/saved_data/Accuracies}
-				\caption{The accuracies of all four uncertainty sampling methods for every iteration.}
-				\label{fig:accuracies}
-			\end{minipage}%
-			\begin{minipage}{.5\textwidth}
-				\centering
-				\includegraphics[width=\linewidth]{"../src/saved_data/Class balancing"}
-				\caption{The proportion of the largest class in the pool at each iteration. Balance is at 0.33}
-				\label{fig:class-balancing}
-			\end{minipage}
-			\end{figure}
-			
+			\includegraphics[width=\linewidth]{../src/saved_data/Accuracies}
+			\caption{The accuracies of all four uncertainty sampling methods for every iteration.}
+			\label{fig:accuracies}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{"../src/saved_data/Class balancing"}
+			\caption{The proportion of the largest class in the pool at each iteration. Balance is at 0.33}
+			\label{fig:class-balancing}
+		\end{minipage}
+		\end{figure}
 		
-	\begin{multicols}{2}
+	
+\begin{multicols}{2}
 
-		\section{Discussion} %TODO: Write section
-			
-		% 	
-		As seen from figure \ref{fig:accuracies}, the three uncertainty sampling methods all seem intertwined. Furthermore, it looks like the random sampling outperforms the proposed methods which will be discussed later. The data that has been collected  in this project does not portray the real data that describes the number of COVID-19 fatalities in a country. Many other variables that are far more complex than simple numbers can impact the infection curve. Thus, the uncertainty sampling methods may seem no better than random. Moreover, if there are many outliers in the data-set that have no co-linearity, then the constructed model will not benefit by being trained on these data-points. \noindent
+	\section{Discussion} %TODO: Write section
 		
-		Another important factor is the class imbalance, see figure \ref{fig:class-balancing}. The reason why all of the experiments starts with a fairly high accuracy is due to the fact that classes are balanced (the model starts with a country from each class ). As the number of training countries increases the uncertainty methods proposed in this project, will start filling up a whole class before starting to sample from other classes. This creates an imbalanced data-set which in turn makes the accuracy of the model very poor. 
-			
-			
-		\section{Learning outcome} %TODO: Write section
-		Throughout the process of conducting the experiment and writing the report, a deeper understanding of the implementation and inner workings of active learning and uncertainty sampling and has been achieved. The unintuitive result of random sampling being close to on par with other methods has shown to not generally be the case but is rather caused by the class imbalance created when sampling from the pool. Realizing this allows for counteractive measures to be taken in the future to uphold this balance. Other minutia like increasing number of optimizer restarts and using an appropriate kernel have also proved to play an important role for sensible results.
-			
-	\end{multicols}
+	% 	
+As seen from figure \ref{fig:accuracies}, the three uncertainty sampling methods all seem intertwined. Furthermore, it looks like the random sampling outperforms the proposed methods -- especially early in the query. Somewhat lower performance is seen in the least confident sampling method. This project has no statistic test into whether the explaining variables describe the number of COVID-19 fatalities accurately and it is expected that some are redundant or very correlated. Thus, the classification problem might be  unstable and sensitive to outliers which is problematic for the probablistic model. A more accurate modeling must account for the dependance and interconnected generative story between the countries.
+	
+A counter-intuitive effect is seen for all methods where the accuracy initially is high before falling rapidly and subsequently regaining accuracy. An important effect which might account for this is the class imbalance at each time in the training, see figure \ref{fig:class-balancing}. as all experiments start out with perfectly balanced data sets. As the number of training countries increases, the uncertainty sampling methods seem to almost fill up an entire class before sampling other classes -- possibly due to one class containing much of the data variability. This problematic imbalance does not effect random sampling in the same way and might account for its' better early performance.
+		
+		
+\section{Learning outcomes} %TODO: Write section
+Throughout the process of conducting the experiment and writing the report, a better understanding of the implementation and inner workings of active learning and uncertainty sampling was achieved. The surprising result of random sampling being close to on par with other methods is taken as a warning of very small data-sets with outliers. Realizing this allows for counteractive measures to be taken in the future to uphold class balance or simply to not use active learning for the first few samplings on a noisy problem . Other minutia like increasing number of Gaussian Process hyper parameter optimizer restarts and using an appropriate kernel  also proved to play important roles for sensible convergence.
+		
+\end{multicols}
 
 \newpage
-	\begin{thebibliography}{9}
+\begin{thebibliography}{9}
+
+
+	
+	\bibitem{density} Wikipedia contributors: "List of countries and dependencies by population density", Date of last revision: 22 March 2020 15:25 UTC. Visited at,  \url{ https://en.wikipedia.org/w/index.php?title=List_of_countries_and_dependencies_by_population_density&oldid=946809073}
+	
+	\bibitem{corona} Balaaje from Kaggle: "Coronavirus (COVID-19) dataset" with data from \url{https://www.worldometers.info/coronavirus/}. Visited at, \url{https://www.kaggle.com/balaaje/coronavirus-covid19-dataset}
+	
+	\bibitem{alder} World Population Review: "Countries by Median Age 2018". Visited at, \url{https://worldpopulationreview.com/countries/median-age/}
+	
+	\bibitem{bnp} International Monetary Fund: "GDP per capita, current prices", ©IMF, 2019. Visited at, \url{https://www.imf.org/external/datamapper/NGDPDPC@WEO/OEMDC/ADVEC/WEOWORLD}
+	
+	\bibitem{region} J. SnowLabs, Datahub.io: "Country and Continent Codes List" . Can be found at, \url{https://datahub.io/JohnSnowLabs/country-and-continent-codes-list}
+	
+	\bibitem{healthcare} Numbeo.com: "Health Care Index by Country 2020". Visited at, \url{https://www.numbeo.com/health-care/rankings_by_country.jsp}
+	
+	\bibitem{turist} World Economic Forum: "Travel and Tourism Competitiveness Index", © 2020 World Economic Forum. Visited at, \url{http://reports.weforum.org/travel-and-tourism-competitiveness-report-2019/rankings/}
 	
 	
-		
-		\bibitem{density} Wikipedia contributors: "List of countries and dependencies by population density", Date of last revision: 22 March 2020 15:25 UTC. Visited at,  \url{ https://en.wikipedia.org/w/index.php?title=List_of_countries_and_dependencies_by_population_density&oldid=946809073}
-		
-		\bibitem{corona} Balaaje from Kaggle: "Coronavirus (COVID-19) dataset" with data from \url{https://www.worldometers.info/coronavirus/}. Visited at, \url{https://www.kaggle.com/balaaje/coronavirus-covid19-dataset}
-		
-		\bibitem{alder} World Population Review: "Countries by Median Age 2018". Visited at, \url{https://worldpopulationreview.com/countries/median-age/}
-		
-		\bibitem{bnp} International Monetary Fund: "GDP per capita, current prices", ©IMF, 2019. Visited at, \url{https://www.imf.org/external/datamapper/NGDPDPC@WEO/OEMDC/ADVEC/WEOWORLD}
-		
-		\bibitem{region} J. SnowLabs, Datahub.io: "Country and Continent Codes List" . Can be found at, \url{https://datahub.io/JohnSnowLabs/country-and-continent-codes-list}
-		
-		\bibitem{healthcare} Numbeo.com: "Health Care Index by Country 2020". Visited at, \url{https://www.numbeo.com/health-care/rankings_by_country.jsp}
-		
-		\bibitem{turist} World Economic Forum: "Travel and Tourism Competitiveness Index", © 2020 World Economic Forum. Visited at, \url{http://reports.weforum.org/travel-and-tourism-competitiveness-report-2019/rankings/}
-		
-		
-		
-		
-		
-	\end{thebibliography}
-	
-	%\section{Appendix}
 	
 	
+	
+\end{thebibliography}
+
+%\section{Appendix}
+
+
 \end{document}
 
 
