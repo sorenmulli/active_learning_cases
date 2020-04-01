@@ -11,7 +11,7 @@
 \usepackage{subcaption}
 
 
-\title{\vspace*{-3.75cm}Title}
+\title{\vspace*{-3.75cm}Classifying a Contry's COVID-19 Fatalities}
 \author{Søren Holm, Oskar Wiese, Anders Henriksen and Anne Pedersen \\
 	\small {\texttt{\{s183911,s183917,s183904,s174300\}@student.dtu.dk}}}
 \date{\today}
@@ -94,6 +94,12 @@
 	\begin{multicols}{2}
 
 		\section{Discussion} %TODO: Write section
+			
+		% 	
+		As seen from figure \ref{fig:accuracies}, the three uncertainty sampling methods all seem intertwined. Furthermore, it looks like the random sampling outperforms the proposed methods which will be discussed later. The data that has been collected  in this project does not portray the real data that describes the number of COVID-19 fatalities in a country. Many other variables that are far more complex than simple numbers can impact the infection curve. Thus, the uncertainty sampling methods may seem no better than random. Moreover, if there are many outliers in the data-set that have no co-linearity, then the constructed model will not benefit by being trained on these data-points. \noindent
+		
+		Another important factor is the class imbalance, see figure \ref{fig:class-balancing}. The reason why all of the experiments starts with a fairly high accuracy is due to the fact that classes are balanced (the model starts with a country from each class ). As the number of training countries increases the uncertainty methods proposed in this project, will start filling up a whole class before starting to sample from other classes. This creates an imbalanced data-set which in turn makes the accuracy of the model very poor. 
+			
 			
 		\section{Learning outcome} %TODO: Write section
 		Throughout the process of conducting the experiment and writing the report, a deeper understanding of the implementation and inner workings of active learning and uncertainty sampling and has been achieved. The unintuitive result of random sampling being close to on par with other methods has shown to not generally be the case but is rather caused by the class imbalance created when sampling from the pool. Realizing this allows for counteractive measures to be taken in the future to uphold this balance. Other minutia like increasing number of optimizer restarts and using an appropriate kernel have also proved to play an important role for sensible results.
