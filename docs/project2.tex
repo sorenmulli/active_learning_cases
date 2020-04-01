@@ -8,6 +8,7 @@
 \usepackage{texfiles/SpeedyGonzales}
 \usepackage{texfiles/MediocreMike}
 \usepackage{multicol}
+\usepackage{subcaption}
 
 
 \title{\vspace*{-3.75cm}Title}
@@ -70,14 +71,32 @@
 		 
 		This project compares the performance of least confident, margin sampling and entropy on this specific classification problem. 
 		 
-			
+	\end{multicols}		
 
 	\section{Results} %TODO: Write section
+			\begin{figure}[H]
+			\centering
+			\begin{minipage}{.5\textwidth}
+				\centering
+				\includegraphics[width=\linewidth]{../src/saved_data/Accuracies}
+				\caption{The accuracies of all four uncertainty sampling methods for every iteration.}
+				\label{fig:accuracies}
+			\end{minipage}%
+			\begin{minipage}{.5\textwidth}
+				\centering
+				\includegraphics[width=\linewidth]{"../src/saved_data/Class balancing"}
+				\caption{The proportion of the largest class in the pool at each iteration. Balance is at 0.33}
+				\label{fig:class-balancing}
+			\end{minipage}
+			\end{figure}
+			
 		
+	\begin{multicols}{2}
 
 		\section{Discussion} %TODO: Write section
 			
 		\section{Learning outcome} %TODO: Write section
+		Throughout the process of conducting the experiment and writing the report, a deeper understanding of the implementation and inner workings of active learning and uncertainty sampling and has been achieved. The unintuitive result of random sampling being close to on par with other methods has shown to not generally be the case but is rather caused by the class imbalance created when sampling from the pool. Realizing this allows for counteractive measures to be taken in the future to uphold this balance. Other minutia like increasing number of optimizer restarts and using an appropriate kernel have also proved to play an important role for sensible results.
 			
 	\end{multicols}
 
