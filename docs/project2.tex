@@ -14,7 +14,7 @@
 \titlespacing*{\section}{0pt}{1ex}{1ex}
 
 
-\title{\vspace*{-3.75cm} Using Active Learning for Classification of Contries' COVID-19 Fatalities}
+\title{\vspace*{-3.75cm} Using Active Learning for Classification of Countries' COVID-19 Fatalities}
 \author{Søren Holm, Oskar Wiese, Anders Henriksen and Anne Pedersen \\
 \small {\texttt{\{s183911,s183917,s183904,s174300\}@student.dtu.dk}}}
 \date{\today}
@@ -31,17 +31,17 @@
 \maketitle
 
 \begin{abstract} %TODO: Write section
-	\noindent COVID-19 has recently affected the life of every human being on earth. A Gaussian Process was fitted to classify a country as low, medium or high; ranked after the number of COVID-19 fatalities. The aim of the project is to compare sampling of data points from a pool of 58 countries with three different uncertainty sampling methods; Least confident, Marginal and Entropy. The methods were compared, but no difference between the uncertainty sampling techniques could be shown. This may, however, be due to class imbalances during sampling of the three-class setup or the need for better explaining variables to classify corona-infected countries' number of COVID-19 fatalities.
+	\noindent COVID-19 currently affects the lives of almost every human being on Earth. A Gaussian Process was fitted to classify a country as low, medium or high ranked after the number of COVID-19 fatalities as per 27 March 2020. The aim of the project was to compare sampling of data points from a pool of 58 countries with three different uncertainty sampling methods; Least confident, Marginal and Entropy. The methods were compared, but no difference between the uncertainty sampling techniques could be shown. This may, however, be due to class imbalances during sampling of the three-class setup or a need for better explaining variables to classify corona-infected countries' number of COVID-19 fatalities.
 \end{abstract}
 
 \begin{multicols}{2}
 	
 	
 	\section{Introduction} %TODO: Add something about GP
-	The novel corona virus and COVID-19 has affected the lives of billions of people all around the world. This project has collected a data-set of different measures for each country and then uses uncertainty sampling to classify countries by the number of COVID-19-related fatalities. Lastly, we compare different ways of sampling to find the one that gets a satisfying accuracy the fastest. Our initial hypothesis was that entropy sampling performs better by using the entire class distribution, but some worries were had for outliers in this small data-set with many noisy explaining variables. 
+	The novel corona virus, COVID-19, currently affects the lives of billions of people all around the world. This project has collected a data-set of different measures for each country and then uses uncertainty sampling to classify countries by the number of COVID-19 related fatalities as per 27 March 2020. Lastly, we compare different ways of sampling to find the one that gets a satisfying accuracy the fastest. Our initial hypothesis was that entropy sampling performs better by using the entire class distribution, but some worries were had for outliers in this small dataset with many noisy explaining variables. 
 	
 	\section{Data}
-	The dataset was constructed from several different data-sets cited as \cite{density, corona, alder, bnp, region, healthcare, turist}. For each country in the world with at least one COVID-19 related fatality as of Marc 27 when \cite{corona} was collected, we collected seven features; the country's GDP per capita, population density per km$^2$, continent, median age of the population, index of quality of healthcare system and number of tourists per year per million inhabitants. 58 countries had data for all these and were used. These features were used to classify the countries by number of fatalities in three classes of equal size. 60 \% of the data was used for training, while the remaining 40 \% was used for testing. %TODO: define classes
+	The dataset was constructed from several different datasets \cite{density, corona, alder, bnp, region, healthcare, turist}. For each country in the world with at least one COVID-19 related fatality as of 27 March 2020 when \cite{corona} was collected, we collected seven features; the country's GDP per capita, population density per km$^2$, continent, median age of the population, index of quality of healthcare system and number of tourists per year per million inhabitants. 58 countries had data for all these and were used. These features were used to classify the countries by number of fatalities in three classes of equal size. 60 \% of the data was used for training, while the remaining 40 \% was used for testing. %TODO: define classes
 
 	\section{Methods}
 	\texttt{Code and data set available at \url{github.com/sorenmulli/active_learning_cases}} \newline
