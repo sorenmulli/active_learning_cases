@@ -8,13 +8,13 @@ import seaborn as sb
 
 from scipy.stats import ttest_ind, bartlett
 
-SHOW = True
 ###################
 # Assumes causality data is given in saved_data/causality
 ####################
+SHOW = True
 
 def csv_read(path: str):
-	paths = glob(f'{path}/*.csv')
+	paths = list(reversed(glob(f'{path}/*.csv')))
 	print(paths)
 	dfs = list()
 	for df_path in paths:
@@ -55,14 +55,15 @@ if __name__ == "__main__":
 
 	condition = ()
 	# condition = ('S', 1)
-	data_check, visual_pairs = datalist[1], [('P','B'), ('P','K'), ('S', 'K')]
-	summary_analyze(data_check, visual_pairs, condition)
-
+	visual_pairs =  [('I','B')]
+	summary_analyze(datalist[0], visual_pairs, condition)
 	# data_compares, test_var = (0, 1), 'X'
 	# data = datalist[0]
 	# data_compares = data[data['S'] == 0], data[data['S'] == 1]
 	data_compares = datalist[0], datalist[1]
 	for var in 'ISBKA':
 		compare(*data_compares, var)
-
+	plt.hist(datalist[0]['A'])
+	plt.hist(datalist[1]['A'])
+	if SHOW: plt.show()
 
