@@ -13,20 +13,19 @@ from scipy.stats import ttest_ind, bartlett
 ####################
 
 def csv_read(path: str):
-	paths = glob(f'{path}/*.csv')
+	paths = glob(f'{path}/*.txt')
 	print(paths)
-	return [pd.read_csv(path) for path in paths]
+	return [pd.read_csv(path, sep=" ") for path in paths]
 
 def summary_analyze(data: pd.DataFrame, visual_pairs: list, condition: tuple):
 	if condition: data = data[data[condition[0]] == condition[1]]
-
+	print(data.shape)
 	# Mean and std...
 	print(data.describe())
 
 	# Covariance matrix
 	plt.matshow(data.corr())
 	plt.show()
-	plt.cfg()
 
 	# Joint and marginal
 	for pair in visual_pairs: sb.jointplot(*pair, data=data)
