@@ -44,7 +44,7 @@ def summary_analyze(data: pd.DataFrame, visual_pairs: list = [], condition: tupl
 	g = sb.PairGrid(data, palette=["red"])
 	g.map_diag(sb.distplot, kde=False, bins=10)
 	g.map_diag(meanfunc)
-	# g.map_upper(sb.kdeplot, cmap="Blues_d")
+	g.map_upper(sb.kdeplot, cmap="Blues_d")
 
 	g.map_lower(plt.scatter, s=10)
 	g.map_lower(corrfunc)
