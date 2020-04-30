@@ -1,4 +1,5 @@
 import os, sys
+from itertools import combinations
 from glob import glob as glob #glob
 
 import numpy as np
@@ -8,13 +9,15 @@ import seaborn as sb
 
 from scipy.stats import ttest_ind, bartlett
 
+from helpers import pearsonr_ci
+
 ###################
 # Assumes causality data is given in saved_data/causality
 ####################
 SHOW = True
 
 def csv_read(path: str):
-	paths = list(reversed(glob(f'{path}/*.csv')))
+	paths = list(sorted(glob(f'{path}/*.csv')))
 	print(paths)
 	dfs = list()
 	for df_path in paths:
@@ -23,14 +26,17 @@ def csv_read(path: str):
 		dfs.append(df)
 	return dfs
 
-def summary_analyze(data: pd.DataFrame, visual_pairs: list, condition: tuple):
+def summary_analyze(data: pd.DataFrame, visual_pairs: list = [], condition: tuple = ()):
 	if condition: data = data[data[condition[0]] == condition[1]]
 	print('shape', data.shape)
 	# Mean and std...
 	print(data.describe())
 
 	# Covariance matrix
-	print(data.corr())
+	for pair in combinations(data.columns, r=2):
+		print(f"{pair[0]} and {pair[1]}")
+		pearsonr_ci(data[pair[0]], data[pair[1]])
+	# print(data.corr())
 	# plt.matshow(data.corr())
 	# plt.show()
 
@@ -53,17 +59,21 @@ if __name__ == "__main__":
 	os.chdir(sys.path[0])
 	datalist = csv_read('saved_data/causality')
 
-	condition = ()
-	# condition = ('S', 1)
-	visual_pairs =  [('I','B')]
-	summary_analyze(datalist[0], visual_pairs, condition)
-	# data_compares, test_var = (0, 1), 'X'
-	# data = datalist[0]
-	# data_compares = data[data['S'] == 0], data[data['S'] == 1]
-	data_compares = datalist[0], datalist[1]
-	for var in 'ISBKA':
-		compare(*data_compares, var)
-	plt.hist(datalist[0]['A'])
-	plt.hist(datalist[1]['A'])
-	if SHOW: plt.show()
 
+	# condition = ('S', 1)
+	# summary_analyze(datalist[3])
+	# summary_analyze(datalist[3], condition=('S',1))
+	# summary_analyze(datalist[3])
+	# summary_analyze(datalist[2])
+
+	# data = datalist[3]
+	# data_compares = data[data['S'] == 1], data
+	# data_compares = datalist[0], datalist[3]
+	# for var in 'APKI':
+		# compare(*data_compares, var)
+
+
+	# plt.boxplot( datalist[0]['K'], )
+	# plt.show()
+	# plt.boxplot( datalist[3]['K'] )
+	# plt.show()
