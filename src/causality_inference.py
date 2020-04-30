@@ -44,7 +44,7 @@ def summary_analyze(data: pd.DataFrame, visual_pairs: list = [], condition: tupl
 	g = sb.PairGrid(data, palette=["red"])
 	g.map_diag(sb.distplot, kde=False, bins=10)
 	g.map_diag(meanfunc)
-	g.map_upper(sb.kdeplot, cmap="Blues_d")
+	# g.map_upper(sb.kdeplot, cmap="Blues_d")
 
 	g.map_lower(plt.scatter, s=10)
 	g.map_lower(corrfunc)
@@ -63,22 +63,14 @@ if __name__ == "__main__":
 	os.chdir(sys.path[0])
 	datalist = csv_read('saved_data/causality')
 
-	summary_analyze(datalist[4])
 	# summary_analyze(datalist[0], condition = ('S', 1))
 	# summary_analyze(datalist[0])
 	# summary_analyze(datalist[1])
-
 	# summary_analyze(datalist[2])
-
 	# summary_analyze(datalist[3])
+	# summary_analyze(datalist[4])
+	summary_analyze(datalist[5])
 
-	# condition = ('S', 1)
-	# summary_analyze(datalist[3])
-	# summary_analyze(datalist[3], condition=('S',1))
-	# summary_analyze(datalist[3])
-	# summary_analyze(datalist[2])
-
-	# data = datalist[3]
 	# data_compares = data[data['S'] == 1], data
 	# data_compares = datalist[0], datalist[3]
 	# for var in 'APKI':
