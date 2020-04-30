@@ -134,7 +134,38 @@ p val K variance: 0.5420753358523627
 p val for A mean: 0.24621510443236966
 p val A variance: 0.04915986030072988
 
-\textbf{Fourth experiment:} We sampled 50 points and intervened on K=1. 
+\textbf{Fourth experiment:} We sampled 50 points and intervened on K=1. Since intervention on K does not change P, it could be assumed that there is a confounder between P and K. This could be H.
+p<-h->k
+
+
+           I          P         S          B     K          A
+count  50.000000  50.000000  50.00000  50.000000  50.0  50.000000
+mean    0.952428   1.853977   0.70000   1.501549   1.0   0.852696
+std     0.904078   3.518374   0.46291   3.484149   0.0   3.236801
+min    -0.478087  -7.299935   0.00000  -7.328402   1.0  -9.617031
+25%     0.344298   0.062655   0.00000  -0.660957   1.0  -0.321875
+50%     0.892102   1.825095   1.00000   1.642826   1.0   1.086686
+75%     1.641766   4.317654   1.00000   3.774912   1.0   2.287807
+max     3.023864   8.983223   1.00000   9.380391   1.0  11.491141
+
+      I         P         S         B   K         A
+I  1.000000  0.213531 -0.140216 -0.103818 NaN  0.250387
+P  0.213531  1.000000 -0.142613  0.931324 NaN  0.012295
+S -0.140216 -0.142613  1.000000 -0.107631 NaN  0.185039
+B -0.103818  0.931324 -0.107631  1.000000 NaN -0.043386
+K       NaN       NaN       NaN       NaN NaN       NaN
+A  0.250387  0.012295  0.185039 -0.043386 NaN  1.000000
+
+p val for I mean: 0.5972710034477902
+p val I variance: 0.12141520656190993
+p val for B mean: 0.24487509163125104
+p val B variance: 0.3069268978956339
+p val for P mean: 0.1559487121326533
+p val P variance: 0.35826110265904465
+p val for S mean: 0.6130768858813082
+p val S variance: 0.7481530567819892
+p val for A mean: 0.7340946797325456
+p val A variance: 0.14890467211990585
 
 
 \end{multicols}		
