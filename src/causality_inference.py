@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sb
 from scipy.stats import ttest_ind, bartlett
 
-from helpers import pearsonr_ci, corrfunc
+from helpers import pearsonr_ci, corrfunc, meanfunc
 
 ###################
 # Assumes causality data is given in saved_data/causality
@@ -42,9 +42,11 @@ def summary_analyze(data: pd.DataFrame, visual_pairs: list = [], condition: tupl
 
 	# Joint and marginal
 	g = sb.PairGrid(data, palette=["red"])
-	g.map_upper(plt.scatter, s=10)
-	g.map_diag(sb.distplot, kde=False)
-	g.map_lower(sb.kdeplot, cmap="Blues_d")
+	g.map_diag(sb.distplot, kde=False, bins=10)
+	g.map_diag(meanfunc)
+	g.map_upper(sb.kdeplot, cmap="Blues_d")
+
+	g.map_lower(plt.scatter, s=10)
 	g.map_lower(corrfunc)
 	plt.show()
 
@@ -61,6 +63,7 @@ if __name__ == "__main__":
 	os.chdir(sys.path[0])
 	datalist = csv_read('saved_data/causality')
 
+	summary_analyze(datalist[0])
 	summary_analyze(datalist[1])
 
 	summary_analyze(datalist[2])
