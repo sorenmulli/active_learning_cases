@@ -63,7 +63,8 @@ if __name__ == "__main__":
 	os.chdir(sys.path[0])
 	datalist = csv_read('saved_data/causality')
 
-	summary_analyze(datalist[0], condition = ('S', 1))
+	summary_analyze(datalist[4])
+	# summary_analyze(datalist[0], condition = ('S', 1))
 	# summary_analyze(datalist[0])
 	# summary_analyze(datalist[1])
 
