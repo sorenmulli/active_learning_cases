@@ -6,14 +6,14 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb
-
 from scipy.stats import ttest_ind, bartlett
 
-from helpers import pearsonr_ci
+from helpers import pearsonr_ci, corrfunc
 
 ###################
 # Assumes causality data is given in saved_data/causality
 ####################
+sb.set(style="white")
 SHOW = True
 
 def csv_read(path: str):
@@ -41,10 +41,12 @@ def summary_analyze(data: pd.DataFrame, visual_pairs: list = [], condition: tupl
 	# plt.show()
 
 	# Joint and marginal
-	for pair in visual_pairs:
-		sb.jointplot(*pair, data=data)
-		if SHOW: plt.show()
-
+	g = sb.PairGrid(data, palette=["red"])
+	g.map_upper(plt.scatter, s=10)
+	g.map_diag(sb.distplot, kde=False)
+	g.map_lower(sb.kdeplot, cmap="Blues_d")
+	g.map_lower(corrfunc)
+	plt.show()
 
 def compare(data_old: pd.DataFrame, data_new: pd.DataFrame, t_test_var: str):
 	# T test
@@ -59,6 +61,11 @@ if __name__ == "__main__":
 	os.chdir(sys.path[0])
 	datalist = csv_read('saved_data/causality')
 
+	summary_analyze(datalist[1])
+
+	summary_analyze(datalist[2])
+
+	summary_analyze(datalist[3])
 
 	# condition = ('S', 1)
 	# summary_analyze(datalist[3])

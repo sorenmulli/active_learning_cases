@@ -1,8 +1,12 @@
 import numpy as np
 from scipy import stats
+
+import matplotlib.pyplot as plt
+
+
 #Taken from https://zhiyzuo.github.io/Pearson-Correlation-CI-in-Python/
 
-def pearsonr_ci(x,y,alpha=0.05):
+def pearsonr_ci(x,y,alpha=0.05, _print=True):
     ''' calculate Pearson correlation along with the confidence interval using scipy and numpy
     Parameters
     ----------
@@ -26,4 +30,10 @@ def pearsonr_ci(x,y,alpha=0.05):
     z = stats.norm.ppf(1-alpha/2)
     lo_z, hi_z = r_z-z*se, r_z+z*se
     lo, hi = np.tanh((lo_z, hi_z))
-    print(f"\t corr {r:.3f} in [{lo:.3f}, {hi:.3f}], with p={p:.3f}")
+    if _print: print(f"\t corr {r:.3f} in [{lo:.3f}, {hi:.3f}], with p={p:.3f}")
+    return lo, hi, p
+
+def corrfunc(x, y, **kws):
+    r, _ = stats.pearsonr(x, y)
+    ax = plt.gca()
+    ax.annotate("r = {:.2f} € [{:.2f},{:.2f}], p = {:.2f} ".format(r, *pearsonr_ci(x,y,_print=False)), xy=(.1, .9), xycoords=ax.transAxes)
