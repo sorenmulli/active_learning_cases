@@ -49,7 +49,9 @@
 \section{Methods}
 \texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
 
+
 \textbf{First experiment:} 25 samples were drawn from the standard dataset. This shows some correlation between B and P, I and P, I and B and B and K.
+
 
             I          P          S          B          K          A
 count  25.000000  25.000000  25.000000  25.000000  25.000000  25.000000
@@ -69,11 +71,32 @@ B -0.171798  0.839574  0.004534  1.000000  0.244270  0.132848
 K  0.291331  0.414181 -0.493877  0.244270  1.000000  0.079370
 A  0.016965  0.212517 -0.053259  0.132848  0.079370  1.000000
 
-\textbf{Second experiment:} 25 samples were drawn from the dataset with intervention on P=1. 
+
+\textbf{Second experiment:} Conditioning on S, since S is a categorical variable. S is conditioned to be 1. From this, we notice that the difference in the mean of K is significant. As such, K could be a child of S, since conditioning on S significantly changes the mean of K.
+s->k
+S has a slight change in the mean of I, so S could be parent of I.
+s->i
+
+p val for I mean: 0.08728710634129876
+p val I variance: 0.7074842288389503
+p val for P mean: 0.6201666892955116
+p val P variance: 0.8943920292984142
+p val for B mean: 0.9828623524458022
+p val B variance: 0.9765044743353757
+p val for K mean: 0.0060687195968801904
+p val K variance: 0.24180833861337936
+p val for A mean: 0.8102238966451225
+p val A variance: 0.6201097182165578
+
+
+\textbf{Third experiment:} 25 samples were drawn from the dataset with intervention on P=1. 
 The p-value from the t-test for testing significance of variance also shows that A has a significant difference after intervening on A, so A is probably a descendant of P. 
+p->a
 The same test on mean also shows that B is probably a descendant of P. 
+p->b
 I might also be a parent of B, since I and B got a big negative correlation after intervening on P.
 P and K seem correlated, so there could be a connection between these.
+p->/<-k
 
             I     P          S          B          K          A
 count  25.000000  25.0  25.000000  25.000000  25.000000  25.000000
