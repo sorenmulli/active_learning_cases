@@ -7,7 +7,7 @@
 \usepackage{texfiles/MediocreMike}
 \usepackage{multicol}
 
-\title{Causal Inference: The Data of 7 Intertwined Effects }
+\title{Causal Inference on 7 Intertwined Effects }
 \author{Søren Winkel Holm et al.}
 \date{\today}
 
@@ -51,10 +51,11 @@
 \texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
 \begin{itemize}
 	\item Approach: Few data points, more risk seeking. Motivated by cost parameters.
-	\item Statistical tests: Student t test of means. Confidence interval on correlations. Comparing standard deviations.
+	\item Queries were motivated by areas of uncertainty (=disagreement in the group) about the graph and intervention values close to the extreme were chosen.
+	\item Statistical tests: Student t test of means. Confidence interval on correlations. Comparing standard deviations. Bartlett's test of equal variance (nævner jeg i diskussionen)
 	\item Visualization tools: Scatter plot of joint distribution. Comparisons of marginal distributions between queries.
 	\item Writing up all 42 possible edges and eliminating the unlikely and achieving smaller set of possible edges where many are mutually exclusive given assumptions (mention acyclic, we had an idea of linearity)
-	\item Constructing hypotheses consistent with the data and trying loosely to apply counterfactuals to predict next query.
+	\item Constructing hypotheses consistent with the data and trying loosely to apply counterfactuals to predict result of next query.
 \end{itemize}
 
 %\textbf{First experiment:} 25 samples were drawn from the standard dataset. This shows some correlation between B and P, I and P, I and B and B and K.
@@ -200,28 +201,39 @@
 
 \paragraph{Cost}
 \[
-\underbrace{425}_{\text{\# points}} + \underbrace 9_ {\text{\# experiments}} \cdot 20 +\underbrace{70}_{\text{Guess}}=612
+\underbrace{425}_{\text{\# points}} + \underbrace {9}_ {\text{\# experiments}} \cdot 20 +\underbrace{70}_{\text{Guess}}=612
 \]
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.6\linewidth]{wronggraph}
-	\caption{Wrong graph guess. Note that especially the role of node A is misunderstood. Three edges are correct and four are wrong. Two nodes (P and K) have three conected edges.}
+	\caption{Wrong graph guess. Note that especially the effects on node A are misunderstood. Four edges are correct and three are wrong.}
 	\label{fig:wronggraph}
 \end{figure}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.6\linewidth]{correctgraph}
-	\caption{Correct graph. The causal complexity is lower here than in the wrong graph with no nodes having three connections.}
+	\caption{Correct graph. Amongst the corrections was K's reclassification from mediator to root cause.  }
 	\label{fig:correctgraph}
 \end{figure}
 
 	
 \section{Discussion}
-The approach of more queries each with few data points had strengths and weaknesses. It allowed for a healthy process of estimating the expected result under each of the hypotheses that were viable at that time .
+The approach of a higher number of  queries, each with few data points, had strengths and weaknesses. This approach allowed for a healthy process of estimating the expected result under each of the hypotheses that were viable at that time and getting falsified these hypotheses often. 
 
-	
-	\section{Learning outcomes} 
+It also had some drawbacks that resulted in some confusion. A large amount of time was spent trying to create complicated causal relationships to explain effects that the next query were revealed to be spurious. This was amplified by most of the nodes having high variance compared to their numerical size.
+% There were also issues with using statistical tests whose assumptions were questionable: Bartlett's test of equal variance gave false flags in the small data sets early on\footnote{The test is according to \cite{bartlett} sensitive to normality and suggested spuriously that }.
+
+Another issue which held back the learning significantly and resulted in the need for at least one intervention on every variable was the underlying assumptions of the causal relationships. During most of the inference, linear, additive effects were the framework for modelling the graph. This misunderstanding resulted in some causal hypotheses to be overly complex to explain the effects on the node A. The effect from B to A was very difficult to encapsulate in the linear generative story and was thus often ignored and attributed to noise -- possibly an example of human confirmation bias. 
+
+The non linear and more subtle effects were only discovered when (a) more data points were collected for the non-interventional data to iron out the spurious correlations, (b) the rigorous falsification of the 42 edges were performed and (c) \(\mathring{B\leftarrow0}\) was used to verify the suspicion of non linearity at A.
+\\
+\\
+This task of finding the causal relationships from non-trivial data can be compared to the process of scientific discovery. While this causal graph is idealized and stripped of many practical problems of reality, the core goals and methods are comparable. The worries of where hidden, confounding variables -- in this case H -- lie in the network is a core issue.
+
+A major difference to causal inference in real world data is that the number of possible explaining variables was fixed and known a priori in this project. A real study includes the challenge of limiting the included effects and may risk interpreting the results completely wrong if key variables are excluded. Even in this idealized setting, very similar problems occurred as key non linear effects were missed, highlighting the pitfalls of considering a too small version space. %Er version space dækkende for rummet af hypoteser?
+
+\section{Learning outcomes} 
 	
 \end{multicols}
 

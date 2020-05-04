@@ -63,6 +63,7 @@ if __name__ == "__main__":
 	os.chdir(sys.path[0])
 	paths,datalist = csv_read('saved_data/causality')
 	for i, data in enumerate(datalist):
+		print(paths[i])
 		summary_analyze(data)
 	# summary_analyze(datalist[0])
 	# summary_analyze(datalist[0], condition = ('S', 1))
@@ -74,9 +75,10 @@ if __name__ == "__main__":
 	# summary_analyze(datalist[6])
 	# summary_analyze(datalist[7])
 	# data_compares = data[data['S'] == 1], data
-	# data_compares = datalist[0], datalist[7]
-	# for var in 'BP':
-		# compare(*data_compares, var)
+	print(paths[2])
+	data_compares = datalist[0], datalist[4]
+	for var in 'A':
+		compare(*data_compares, var)
 
 
 	# plt.boxplot( datalist[0]['K'], )
