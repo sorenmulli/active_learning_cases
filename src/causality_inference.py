@@ -24,7 +24,7 @@ def csv_read(path: str):
 		df = pd.read_csv(df_path, header=0)
 		del df[df.columns[0]] #del idx
 		dfs.append(df)
-	return dfs
+	return paths, dfs
 
 def summary_analyze(data: pd.DataFrame, visual_pairs: list = [], condition: tuple = ()):
 	if condition: data = data[data[condition[0]] == condition[1]]
@@ -61,10 +61,13 @@ def compare(data_old: pd.DataFrame, data_new: pd.DataFrame, t_test_var: str):
 
 if __name__ == "__main__":
 	os.chdir(sys.path[0])
-	datalist = csv_read('saved_data/causality')
-
-	summary_analyze(datalist[0])
-	summary_analyze(datalist[0], condition = ('S', 1))
+	paths,datalist = csv_read('saved_data/causality')
+	for i, data in enumerate(datalist):
+		print(paths[i])
+		print(data)
+		summary_analyze(data)
+	# summary_analyze(datalist[0])
+	# summary_analyze(datalist[0], condition = ('S', 1))
 	# summary_analyze(datalist[1])
 	# summary_analyze(datalist[2])
 	# summary_analyze(datalist[3])
@@ -73,8 +76,8 @@ if __name__ == "__main__":
 	# summary_analyze(datalist[6])
 	# summary_analyze(datalist[7])
 	# data_compares = data[data['S'] == 1], data
-	# data_compares = datalist[0], datalist[3]
-	# for var in 'APKI':
+	# data_compares = datalist[0], datalist[7]
+	# for var in 'BP':
 		# compare(*data_compares, var)
 
 
