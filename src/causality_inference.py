@@ -14,7 +14,7 @@ from helpers import pearsonr_ci, corrfunc, meanfunc
 # Assumes causality data is given in saved_data/causality
 ####################
 sb.set(style="white")
-SHOW = False
+SHOW = True
 
 def csv_read(path: str):
 	paths = list(sorted(glob(f'{path}/*.csv')))
@@ -33,21 +33,21 @@ def summary_analyze(data: pd.DataFrame, visual_pairs: list = [], condition: tupl
 	print(data.describe())
 
 	# Covariance matrix
-	# for pair in combinations(data.columns, r=2):
-		# print(f"{pair[0]} and {pair[1]}")
-		# pearsonr_ci(data[pair[0]], data[pair[1]])
+	for pair in combinations(data.columns, r=2):
+		print(f"{pair[0]} and {pair[1]}")
+		pearsonr_ci(data[pair[0]], data[pair[1]])
 	# print(data.corr())
 	# plt.matshow(data.corr())
 	# plt.show()
 
 	# Joint and marginal
-	# g = sb.PairGrid(data, palette=["red"])
-	# g.map_diag(sb.distplot, kde=False, bins=10)
-	# g.map_diag(meanfunc)
+	g = sb.PairGrid(data, palette=["red"])
+	g.map_diag(sb.distplot, kde=False, bins=10)
+	g.map_diag(meanfunc)
 	# g.map_upper(sb.kdeplot, cmap="Blues_d")
-#
-	# g.map_lower(plt.scatter, s=10)
-	# g.map_lower(corrfunc)
+
+	g.map_lower(plt.scatter, s=10)
+	g.map_lower(corrfunc)
 	if SHOW: plt.show()
 
 def compare(data_old: pd.DataFrame, data_new: pd.DataFrame, t_test_var: str):
@@ -62,9 +62,9 @@ def compare(data_old: pd.DataFrame, data_new: pd.DataFrame, t_test_var: str):
 if __name__ == "__main__":
 	os.chdir(sys.path[0])
 	paths,datalist = csv_read('saved_data/causality')
-	for i, data in enumerate(datalist):
-		print(paths[i])
-		summary_analyze(data)
+	# for i, data in enumerate(datalist):
+		# print(paths[i])
+		# summary_analyze(data)
 	# summary_analyze(datalist[0])
 	# summary_analyze(datalist[0], condition = ('S', 1))
 	# summary_analyze(datalist[1])
@@ -74,6 +74,7 @@ if __name__ == "__main__":
 	# summary_analyze(datalist[5])
 	# summary_analyze(datalist[6])
 	# summary_analyze(datalist[7])
+	summary_analyze(datalist[8])
 	# data_compares = data[data['S'] == 1], data
 	print(paths[2])
 	data_compares = datalist[0], datalist[4]
