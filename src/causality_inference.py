@@ -14,7 +14,7 @@ from helpers import pearsonr_ci, corrfunc, meanfunc
 # Assumes causality data is given in saved_data/causality
 ####################
 sb.set(style="white")
-SHOW = True
+SHOW = False
 
 def csv_read(path: str):
 	paths = list(sorted(glob(f'{path}/*.csv')))
@@ -24,7 +24,7 @@ def csv_read(path: str):
 		df = pd.read_csv(df_path, header=0)
 		del df[df.columns[0]] #del idx
 		dfs.append(df)
-	return dfs
+	return paths, dfs
 
 def summary_analyze(data: pd.DataFrame, visual_pairs: list = [], condition: tuple = ()):
 	if condition: data = data[data[condition[0]] == condition[1]]
@@ -33,22 +33,22 @@ def summary_analyze(data: pd.DataFrame, visual_pairs: list = [], condition: tupl
 	print(data.describe())
 
 	# Covariance matrix
-	for pair in combinations(data.columns, r=2):
-		print(f"{pair[0]} and {pair[1]}")
-		pearsonr_ci(data[pair[0]], data[pair[1]])
+	# for pair in combinations(data.columns, r=2):
+		# print(f"{pair[0]} and {pair[1]}")
+		# pearsonr_ci(data[pair[0]], data[pair[1]])
 	# print(data.corr())
 	# plt.matshow(data.corr())
 	# plt.show()
 
 	# Joint and marginal
-	g = sb.PairGrid(data, palette=["red"])
-	g.map_diag(sb.distplot, kde=False, bins=10)
-	g.map_diag(meanfunc)
-	g.map_upper(sb.kdeplot, cmap="Blues_d")
-
-	g.map_lower(plt.scatter, s=10)
-	g.map_lower(corrfunc)
-	plt.show()
+	# g = sb.PairGrid(data, palette=["red"])
+	# g.map_diag(sb.distplot, kde=False, bins=10)
+	# g.map_diag(meanfunc)
+	# g.map_upper(sb.kdeplot, cmap="Blues_d")
+#
+	# g.map_lower(plt.scatter, s=10)
+	# g.map_lower(corrfunc)
+	if SHOW: plt.show()
 
 def compare(data_old: pd.DataFrame, data_new: pd.DataFrame, t_test_var: str):
 	# T test
@@ -61,10 +61,12 @@ def compare(data_old: pd.DataFrame, data_new: pd.DataFrame, t_test_var: str):
 
 if __name__ == "__main__":
 	os.chdir(sys.path[0])
-	datalist = csv_read('saved_data/causality')
-
-	summary_analyze(datalist[0])
-	summary_analyze(datalist[0], condition = ('S', 1))
+	paths,datalist = csv_read('saved_data/causality')
+	for i, data in enumerate(datalist):
+		print(paths[i])
+		summary_analyze(data)
+	# summary_analyze(datalist[0])
+	# summary_analyze(datalist[0], condition = ('S', 1))
 	# summary_analyze(datalist[1])
 	# summary_analyze(datalist[2])
 	# summary_analyze(datalist[3])
@@ -73,9 +75,10 @@ if __name__ == "__main__":
 	# summary_analyze(datalist[6])
 	# summary_analyze(datalist[7])
 	# data_compares = data[data['S'] == 1], data
-	# data_compares = datalist[0], datalist[3]
-	# for var in 'APKI':
-		# compare(*data_compares, var)
+	print(paths[2])
+	data_compares = datalist[0], datalist[4]
+	for var in 'A':
+		compare(*data_compares, var)
 
 
 	# plt.boxplot( datalist[0]['K'], )
