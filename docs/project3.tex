@@ -39,15 +39,16 @@
 \maketitle
 
 \begin{abstract}
-
+This project infers a causal model with as low cost as possible by querying points, using interventions and conditioning, and using statistically determined significant changes to find connections between nodes. After ten queries and one wrong guess, the causal model was found with a total cost of 725. The cost could have been lower if non-linear effects had been considered earlier.
 \end{abstract}
+
 
 \begin{multicols}{2}
 	
 	
 \section{Introduction} 
 
-In this project we infer a causal model as efficient as possible. The purpose of the project is to achieve as low cost while determining the causal model. 
+In this project we infer a causal model as efficiently as possible. The purpose of the project is to achieve the lowest possible cost while determining the causal model. 
 
 \section{Methods}
 \texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
@@ -224,7 +225,7 @@ In this project we infer a causal model as efficient as possible. The purpose of
 \section{Discussion}
 The approach of a higher number of  queries, each with few data points, had strengths and weaknesses. This approach allowed for a healthy process of estimating the expected result under each of the hypotheses that were viable at that time and getting falsified these hypotheses often. 
 
-It also had some drawbacks that resulted in some confusion. A large amount of time was spent trying to create complicated causal relationships to explain effects that the next query were revealed to be spurious. This was amplified by most of the nodes having high variance compared to their numerical size.
+It also had some drawbacks that resulted in some confusion. A large amount of time was spent trying to create complicated causal relationships to explain effects that the next query revealed to be spurious. This was amplified by most of the nodes having high variance compared to their numerical size.
 % There were also issues with using statistical tests whose assumptions were questionable: Bartlett's test of equal variance gave false flags in the small data sets early on\footnote{The test is according to \cite{bartlett} sensitive to normality and suggested spuriously that }.
 
 Another issue which held back the learning significantly and resulted in the need for at least one intervention on every variable was the underlying assumptions of the causal relationships. During most of the inference, linear, additive effects were the framework for modelling the graph. This misunderstanding resulted in some causal hypotheses to be overly complex to explain the effects on the node A. The effect from B to A was very difficult to encapsulate in the linear generative story and was thus often ignored and attributed to noise -- possibly an example of human confirmation bias. 
@@ -232,9 +233,9 @@ Another issue which held back the learning significantly and resulted in the nee
 The non linear and more subtle effects were only discovered when (a) more data points were collected for the non-interventional data to iron out the spurious correlations, (b) the rigorous falsification of the 42 edges were performed and (c) \(\mathring{B\leftarrow0}\) was used to verify the suspicion of non linearity at A.
 \\
 \\
-This task of finding the causal relationships from non-trivial data can be compared to the process of scientific discovery. While this causal graph is idealized and stripped of many practical problems of reality, the core goals and methods are comparable. The worries of where hidden, confounding variables -- in this case H -- lie in the network is a core issue.
+This task of finding the causal relationships from non-trivial data can be compared to the process of scientific discovery. While this causal graph is idealized and stripped of many practical problems of reality, the core goals and methods are comparable. The worries of where hidden, confounding variables, in this case H, lie in the network is a core issue.
 
-A major difference to causal inference in real world data is that the number of possible explaining variables was fixed and known a priori in this project. A real study includes the challenge of limiting the included effects and may risk interpreting the results completely wrong if key variables are excluded. Even in this idealized setting, very similar problems occurred as key non linear effects were missed, highlighting the pitfalls of considering a too small version space. %Er version space dækkende for rummet af hypoteser?
+A major difference to causal inference in real world data is that the number of possible explaining variables was fixed and known a priori in this project. A real study includes the challenge of limiting the included effects and may risk interpreting the results completely wrong if key variables are excluded. Even in this idealized setting, very similar problems occurred as key non-linear effects were missed, highlighting the pitfalls of considering a too small space of hypotheses. %Er version space dækkende for rummet af hypoteser?
 
 \section{Learning outcomes} 
 	
