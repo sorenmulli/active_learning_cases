@@ -8,12 +8,15 @@
 \usepackage{multicol}
 \usepackage{enumitem}
 \usepackage{titlesec}
-\titlespacing*{\section}{0pt}{1ex}{1ex}
+\usepackage{titling}
+\titlespacing*{\section}{0pt}{0ex}{0ex}
+\titlespacing{\subsection}{0pt}{1ex}{0ex}
+\titlespacing{\subsubsection}{0pt}{0.5ex}{0ex}
 
-\title{\vspace*{-3.75cm}Causal Inference on 7 Intertwined Effects}
+\title{\vspace*{-3.75cm}Causal Inference on 7 Intertwined Effects \vspace*{-1cm}}
 \author{\small Søren Holm, Oskar Wiese, Anders Henriksen and Anne Pedersen \\
 \small {\texttt{\{s183911,s183917,s183904,s174300\}@student.dtu.dk}}}
-\date{\small \today}
+\date{\vspace*{-3mm} \small \today}
 
 \fancypagestyle{plain}
 {
@@ -37,13 +40,14 @@
 %TODO: \numberwithin{figure}{section}
 %TODO: \numberwithin{table}{section}
 
+
 \begin{document}
 
 \maketitle
 
 \vspace*{-1cm}
 \begin{abstract}
-This project infers a causal model with as low cost as possible by querying points, using interventions and conditioning, and using statistically determined significant changes to find connections between nodes. After ten queries and one wrong guess, the causal model was found with a total cost of 725. The cost could have been lower if non-linear effects had been considered earlier.
+\noindent This project infers a causal model with as low cost as possible by querying points, using interventions and conditioning, and using statistically determined significant changes to find connections between nodes. After ten queries and one wrong guess, the causal model was found with a total cost of 725. The cost could have been lower if non-linear effects had been considered earlier.
 \end{abstract}
 
 
@@ -56,7 +60,7 @@ In this project we infer a causal model as efficiently as possible. The purpose 
 
 \section{Methods}
 \texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
-\begin{itemize}[noitemsep]
+\vspace*{-8mm} \begin{itemize}[noitemsep]
 	\item Approach: Few data points, more risk seeking. Motivated by cost parameters.
 	\item Queries were motivated by areas of uncertainty about the graph and intervention values close to the extreme were chosen. Uncertainty was for this project equal to disagreement in the group.
 	\item Statistical tests: Student t test of means. Confidence interval on correlations. Comparing standard deviations. Bartlett's test of equal variance (nævner jeg i diskussionen)
