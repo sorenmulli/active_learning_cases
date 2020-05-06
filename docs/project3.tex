@@ -7,10 +7,13 @@
 \usepackage{texfiles/MediocreMike}
 \usepackage{multicol}
 \usepackage{enumitem}
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{1ex}{1ex}
 
-\title{Causal Inference on 7 Intertwined Effects }
-\author{Søren Winkel Holm et al.}
-\date{\today}
+\title{\vspace*{-3.75cm}Causal Inference on 7 Intertwined Effects}
+\author{\small Søren Holm, Oskar Wiese, Anders Henriksen and Anne Pedersen \\
+\small {\texttt{\{s183911,s183917,s183904,s174300\}@student.dtu.dk}}}
+\date{\small \today}
 
 \fancypagestyle{plain}
 {
@@ -38,6 +41,7 @@
 
 \maketitle
 
+\vspace*{-1cm}
 \begin{abstract}
 This project infers a causal model with as low cost as possible by querying points, using interventions and conditioning, and using statistically determined significant changes to find connections between nodes. After ten queries and one wrong guess, the causal model was found with a total cost of 725. The cost could have been lower if non-linear effects had been considered earlier.
 \end{abstract}
