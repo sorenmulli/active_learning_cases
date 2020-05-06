@@ -190,13 +190,11 @@ In this project we infer a causal model as efficiently as possible. The purpose 
 %
 %\textbf{Sixth experiment: } Intervening on I=-2 with 50 samples. This makes the correlation of B and P become close to 1. This shows that I and P are the only parents of B.
 
-
-
 \section{Results}
 
-\paragraph{ Queries:}
-
-\begin{enumerate}[noitemsep]
+\subsubsection*{Queries}
+\vspace*{-0.01cm}
+\begin{enumerate}[]
 	\item \(\mathcal D \in \RR^{25\times 6}\)
 	\item \(\mathcal D \in \RR^{25\times 6}\quad \mathring{P\leftarrow1}\) 
 	\item \(\mathcal D \in \RR^{50\times 6}\quad \mathring{K\leftarrow1}\) 
@@ -210,8 +208,8 @@ In this project we infer a causal model as efficiently as possible. The purpose 
 	\item \(\mathcal D \in \RR^{50\times 6}\quad  \mathring{S\leftarrow1}\)
 	\item \(\mathcal D \in \RR^{50\times 6}\quad  \mathring{B\leftarrow0}\) 
 \end{enumerate}
-
-\paragraph{Cost}
+\vspace*{-0.6cm}
+\subsubsection*{Cost}
 \[
 \underbrace{475}_{\text{\# points}} + \underbrace {9}_ {\text{\# experiments}} \cdot 20 +\underbrace{70}_{\text{Guess}}=725
 \]
