@@ -6,6 +6,7 @@
 \usepackage{texfiles/SpeedyGonzales}
 \usepackage{texfiles/MediocreMike}
 \usepackage{multicol}
+\usepackage{enumitem}
 
 \title{Causal Inference on 7 Intertwined Effects }
 \author{Søren Winkel Holm et al.}
@@ -49,7 +50,7 @@
 
 \section{Methods}
 \texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
-\begin{itemize}
+\begin{itemize}[noitemsep]
 	\item Approach: Few data points, more risk seeking. Motivated by cost parameters.
 	\item Queries were motivated by areas of uncertainty (=disagreement in the group) about the graph and intervention values close to the extreme were chosen.
 	\item Statistical tests: Student t test of means. Confidence interval on correlations. Comparing standard deviations. Bartlett's test of equal variance (nævner jeg i diskussionen)
@@ -185,14 +186,15 @@
 
 \paragraph{ Queries:}
 
-\begin{enumerate}
+\begin{enumerate}[noitemsep]
 	\item \(\mathcal D \in \RR^{25\times 6}\)
 	\item \(\mathcal D \in \RR^{25\times 6}\quad \mathring{P\leftarrow1}\) 
 	\item \(\mathcal D \in \RR^{50\times 6}\quad \mathring{K\leftarrow1}\) 
 	\item \(\mathcal D \in \RR^{50\times 6}\quad \mathring{B\leftarrow1}\) 
 	\item \(\mathcal D \in \RR^{50\times 6}\quad \mathring{I\leftarrow-2}\) 
-	\item \(\mathcal D \in \RR^{50\times 6}\quad \mathring{I\leftarrow2}\ \wedge\ \mathring{P\leftarrow-2}\ \wedge\ \mathring{B\leftarrow-2}\) 
+	\item \(\mathcal D \in \RR^{50\times 6}\quad \mathring{I\leftarrow2}\ \wedge\ \mathring{P\leftarrow-2}\ \wedge\ \mathring{B\leftarrow-2}\)
 	\item Wrong guess, see figure \ref{fig:wronggraph}
+
 	\item \(\mathcal D \in \RR^{50\times 6}\quad  \mathring{A\leftarrow-1}\) 
 	\item \(\mathcal D \in \RR^{75\times 6}\) 
 	\item \(\mathcal D \in \RR^{50\times 6}\quad  \mathring{S\leftarrow1}\)
@@ -201,7 +203,7 @@
 
 \paragraph{Cost}
 \[
-\underbrace{425}_{\text{\# points}} + \underbrace {9}_ {\text{\# experiments}} \cdot 20 +\underbrace{70}_{\text{Guess}}=612
+\underbrace{475}_{\text{\# points}} + \underbrace {9}_ {\text{\# experiments}} \cdot 20 +\underbrace{70}_{\text{Guess}}=725
 \]
 
 \begin{figure}[H]
