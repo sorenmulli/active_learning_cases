@@ -58,10 +58,10 @@ In this project we infer a causal model as efficiently as possible. The purpose 
 \texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
 \begin{itemize}[noitemsep]
 	\item Approach: Few data points, more risk seeking. Motivated by cost parameters.
-	\item Queries were motivated by areas of uncertainty (=disagreement in the group) about the graph and intervention values close to the extreme were chosen.
+	\item Queries were motivated by areas of uncertainty about the graph and intervention values close to the extreme were chosen. Uncertainty was for this project equal to disagreement in the group.
 	\item Statistical tests: Student t test of means. Confidence interval on correlations. Comparing standard deviations. Bartlett's test of equal variance (nævner jeg i diskussionen)
 	\item Visualization tools: Scatter plot of joint distribution. Comparisons of marginal distributions between queries.
-	\item Writing up all 42 possible edges and eliminating the unlikely and achieving smaller set of possible edges where many are mutually exclusive given assumptions (mention acyclic, we had an idea of linearity)
+	\item Writing up all 42 possible edges and eliminating the unlikely and achieving smaller set of possible edges where many are mutually exclusive given the following assumptions: The causal model is acyclic, which means that there are no cycles in the graph. The relationships between variables are linear, thus relationships can be revealed by correlations.
 	\item Constructing hypotheses consistent with the data and trying loosely to apply counterfactuals to predict result of next query.
 \end{itemize}
 
@@ -242,6 +242,15 @@ This task of finding the causal relationships from non-trivial data can be compa
 A major difference to causal inference in real world data is that the number of possible explaining variables was fixed and known a priori in this project. A real study includes the challenge of limiting the included effects and may risk interpreting the results completely wrong if key variables are excluded. Even in this idealized setting, very similar problems occurred as key non-linear effects were missed, highlighting the pitfalls of considering a too small space of hypotheses. %Er version space dækkende for rummet af hypoteser?
 
 \section{Learning outcomes} 
+	
+%	What new knowledge and skill you have gained.
+%	What you think about the topics we have worked with.
+%	What your own understanding is so far.
+%	What you find puzzling, difficult, or contradictory.
+%	What you need to know more about, and how you can find out.
+%	What resources have helped you, that you might want to share. 
+	
+	By trying to explore and draw the causal model by making interventions on different variables, conditioning on the categorical variables and by looking at distributions, correlation, \textit{p}-values for student t-test and changes in variance, we have acquired a technique to infer causal relationships even for hidden variables. The difficulties in finding the causal relationships and determining the effects of the different variables have been discussed. However, in order to determine the causal graph, plotting and visualization tools have been very helpful along with the correlations displayed as well. 
 	
 \end{multicols}
 
