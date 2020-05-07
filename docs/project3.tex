@@ -60,13 +60,16 @@ In this project we infer a causal model as efficiently as possible. The purpose 
 
 \section{Methods}
 \texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
-\vspace*{-8mm} \begin{itemize}
-	\item Approach: Few data points, more risk seeking. Motivated by cost parameters.
-	\item Queries were motivated by areas of uncertainty about the graph and intervention values close to the extreme were chosen. Uncertainty was for this project equal to disagreement in the group.
+Before beginning the inference, an approach to the exploration/exploitation tradeoff to learning was chosen: This was, motivated by the cost parameters, to choose few data points, be more risk seeking and try to guess the causal system before full certainty.
+
+To choose queries, an iterative process of constructing hypotheses consistent with the data at the given time was run. To choose the next query, the area of the graph where the hypotheses differed the most -- and the group disagreed the most -- was examined. Counterfactuals were (loosely) applied for each of the possible graphs before querying to have something to compare the query result to. 
+
+To consider whether the change was 
+\begin{itemize}
 	\item Statistical tests: Student t test of means. Confidence interval on correlations. Comparing standard deviations. Bartlett's test of equal variance (nævner jeg i diskussionen)
 	\item Visualization tools: Scatter plot of joint distribution. Comparisons of marginal distributions between queries.
 	\item Writing up all 42 possible edges and eliminating the unlikely and achieving smaller set of possible edges where many are mutually exclusive given the following assumptions: The causal model is acyclic, which means that there are no cycles in the graph. The relationships between variables are linear, thus relationships can be revealed by correlations.
-	\item Constructing hypotheses consistent with the data and trying loosely to apply counterfactuals to predict result of next query.
+	\item .
 \end{itemize}
 
 %\textbf{First experiment:} 25 samples were drawn from the standard dataset. This shows some correlation between B and P, I and P, I and B and B and K.
