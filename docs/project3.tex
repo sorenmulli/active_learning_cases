@@ -56,19 +56,30 @@
 	
 \section{Introduction} 
 
-Machine learning is great at the \textit{how}, but not at the \textit{why} of correlation. To mitigate this, intervention and conditioning can be used to infer the causal model at hand. In this project we infer a causal model as efficiently as possible. The purpose of the project is to achieve the lowest possible cost while determining the causal model. 
+
+Statistical inference has a deep and well developed tradition for finding effects between stochastic variables. 
+Machine learning is one of the most flexible and succesful methods for this, but it is often limited at answering the question \textit{how}, but not the \textit{why} of the effects.
+As many problems in life requires knowledge about the underlying causal structure to be solvable, the \textit{how} is not always enough.
+To mitigate this generally, an interventional approach can be used to infer the causal model at hand.
+In this project we infer a causal model as efficiently as possible and develop a work method to try to get the most out of interventional observation.
 
 \section{Methods}
 \texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
 Before beginning the inference, an approach to the exploration/exploitation tradeoff to learning was chosen: This was, motivated by the cost parameters, to choose few data points, be more risk seeking and try to guess the causal system before full certainty.
 
-To choose queries, an iterative process of constructing hypotheses consistent with the data at the given time was run. To choose the next query, the area of the graph where the hypotheses differed the most -- and the group disagreed the most -- was examined. Counterfactuals were (loosely) applied for each of the possible graphs before querying to have something to compare the query result to. 
+To choose queries, an iterative process of constructing hypotheses consistent with the data at the given time was run.
+To choose the next query, the area of the graph where the hypotheses differed the most -- and the group disagreed the most -- was examined.
+Counterfactuals were, loosely, applied for each of the possible graphs before querying to have something to compare the query result to. 
 
-To consider whether the change was significant a student t-test was conducted to see whether the means were changed. Furthermore, confidence intervals on correlation along with comparison of standard deviation gave insight in the effects of the different variables. Barlett's test of equal variance was also used to determine if the change in variance was significant. 
+To consider whether the change was significant a student t-test was conducted to see whether the means were changed.
+Furthermore, confidence intervals on correlation along with comparison of standard deviation gave insight in the effects of the different variables.
+Barlett's test of equal variance was also used to determine if the change in variance was significant. 
 
-In addition scatter plots of joint distribution as well as comparisons of marginal distributions between queries was used to determine the structure of the causal graph, see \ref{visuals}. 
+In addition, scatter plots of joint distribution as well as comparisons of marginal distributions between queries was used to determine the structure of the causal graph, see appendix \ref{visuals}. 
 
-The number of 2-permutation of 7 elements results in 42 possible edges. By eliminating the unlikely possibilities achived a smaller subset of possible edges where many are mutually exclusive given the following assumptions: The causal model is acyclic, which means that there are no cycles in the graph. The relationships between variables are linear, thus relationships can be revealed by correlations.
+As an additional strategy for structured inference, all 42 (the number of 2-permutations of 7 elements) possible edges in the grap were noted.
+By eliminating the possibilites that were unlikely to have generated the data, a smaller subset of candidate edges were achieved.
+Amongst these, many were mutually exclusive given the assumptions that the causal model is acyclic and that certain complex relationships would not show up. 
 
 %\begin{itemize}
 %	\item Statistical tests: Student t test of means. Confidence interval on correlations. Comparing standard deviations. Bartlett's test of equal variance (nævner jeg i diskussionen)
