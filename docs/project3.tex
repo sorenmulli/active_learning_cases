@@ -5,6 +5,7 @@
 \usepackage[english]{babel}
 \usepackage{texfiles/SpeedyGonzales}
 \usepackage{texfiles/MediocreMike}
+\usepackage[bookmarksnumbered, backref]{hyperref}
 \usepackage{multicol}
 \usepackage{enumitem}
 \usepackage{titlesec}
@@ -47,7 +48,10 @@
 
 \vspace*{-1cm}
 \footnotesize\begin{abstract}
-\scriptsize \noindent This project infers a causal model with as low cost as possible by querying points, using interventions and conditioning, and using statistically determined significant changes to find connections between nodes. After ten queries and one wrong guess, the causal model was found with a total cost of 725. The cost could have been lower if non-linear effects had been considered earlier.
+\scriptsize \noindent This project infers a causal model while minimizing data cost by querying points using an interventional approach.   
+By considering the changes in marginal and joint distributions of the seven variables under interventions, causal relationsip are found between nodes.
+After ten queries and one wrong guess, the causal model was found with a total cost of 725.
+The cost could have been lower if non-linear effects had been considered earlier.
 \end{abstract}
 
 
@@ -62,18 +66,25 @@ To mitigate this generally, an interventional approach can be used to infer the 
 In this project we infer a causal model as efficiently as possible and develop a work method to try to get the most out of interventional observation.
 
 \section{Methods}
-\texttt{Code available at \url{github.com/sorenmulli/active_learning_cases}} \newline
-Before beginning the inference, an approach to the exploration/exploitation tradeoff to learning was chosen: This was, motivated by the cost parameters, to choose few data points, be more risk seeking and try to guess the causal system before full certainty.
+\texttt{Code available at \url{www.github.com/sorenmulli/active_learning_cases}} \newline
+Before beginning the inference, an approach to the exploration/exploitation tradeoff to learning was chosen: This was, motivated by the cost parameters, to choose few data points, be more risk seeking and try to guess the causal system before full certainty. 
+Generally, the main inference tool was the causal principle that the marginal distribution of a node \(p(A)\) would be different when intervening on its' cause \cite{causality}, that is
+\[
+	p(A) \neq p(A|\mathring{B\leftarrow x})  \Leftrightarrow \text {\(B\) has a causal relationship to \(A\)}
+\]
+
+To consider whether the change after such an intervention was significant the  Student's t-test \cite{tue} was conducted to indicate whether the means were changed.
+
+Furthermore, confidence intervals on correlation \cite{tue} along with comparison of standard deviation gave insight in the effects of the different variables.
+Barlett's test of equal variance \cite{bartlett} was also used to determine if the change in variance was significant. 
+
+In addition, scatter plots of joint distribution as well as comparisons of marginal distributions between queries was used to determine the structure of the causal graph, see appendix \ref{visuals}.
+Here, kernel density estimators \cite{tue} were fitted on the joint distribution to help visualizing the data shape.
 
 To choose queries, an iterative process of constructing hypotheses consistent with the data at the given time was run.
 To choose the next query, the area of the graph where the hypotheses differed the most -- and the group disagreed the most -- was examined.
 Counterfactuals were, loosely, applied for each of the possible graphs before querying to have something to compare the query result to. 
-
-To consider whether the change was significant a student t-test was conducted to see whether the means were changed.
-Furthermore, confidence intervals on correlation along with comparison of standard deviation gave insight in the effects of the different variables.
-Barlett's test of equal variance was also used to determine if the change in variance was significant. 
-
-In addition, scatter plots of joint distribution as well as comparisons of marginal distributions between queries was used to determine the structure of the causal graph, see appendix \ref{visuals}. 
+For the queries, conditioning was also performed on the categorical variable \(S\).
 
 As an additional strategy for structured inference, all 42 (the number of 2-permutations of 7 elements) possible edges in the grap were noted.
 By eliminating the possibilites that were unlikely to have generated the data, a smaller subset of candidate edges were achieved.
@@ -247,9 +258,12 @@ Amongst these, many were mutually exclusive given the assumptions that the causa
 	
 \section{Discussion}
 The approach of a requesting a higher number of  queries, each with few data points, had strengths and weaknesses.
-This approach allowed for a healthy process of estimating the expected result under each of the hypotheses that were viable at that time and getting falsified these hypotheses often. 
+This approach allowed for a healthy process of estimating the expected result under each of the hypotheses that were viable at that time and getting falsified these hypotheses often.
+As an example, (see figures \ref{fig:interNonedata} and \ref{fig:interPdata}) it was initially hypothesized that \(B\) was a cause of \(P\). 
+When an intervention on \(P\) was run to test this, the correlation between \(B\) and \(I\) jumped from \(-0.05 \pm 0.23\) to \(-0.80 \pm 0.11\).
+This change showed that \(P\) had a causal effect on the relationship between \(I\) and \(B\) and the hypothesis was changed to \(P\) being the cause of \(B\) with \(I\) also being discovered as a possible parent of \(B\) in the causal graph.
 
-It also had some drawbacks that resulted in some confusion.
+This general approach also had some drawbacks that resulted in some confusion.
 A large amount of time was spent trying to create complicated causal relationships to explain effects that the next query revealed to be spurious.
 This was amplified by most of the nodes having high variance compared to their numerical size.
 % There were also issues with using statistical tests whose assumptions were questionable: Bartlett's test of equal variance gave false flags in the small data sets early on\footnote{The test is according to \cite{bartlett} sensitive to normality and suggested spuriously that }.
@@ -259,7 +273,7 @@ During most of the inference, linear, additive effects were the framework for mo
 This misunderstanding resulted in some causal hypotheses to be overly complex to explain the effects on the node A.
 The effect from B to A was very difficult to encapsulate in the linear generative story and was thus often ignored and attributed to noise -- possibly an example of human confirmation bias. 
 
-The non linear and more subtle effects were only discovered when (a) more data points were collected for the non-interventional data to iron out the spurious correlations, (b) the rigorous falsification of the 42 edges were performed and (c) \(\mathring{B\leftarrow0}\) was used to verify the suspicion of non linearity at A.
+The non-linear and more subtle effects were only discovered when (a) more data points were collected for the non-interventional data to iron out the spurious correlations, (b) the rigorous falsification of the 42 edges were performed and (c) \(\mathring{B\leftarrow0}\) was used to verify the suspicion of non-linearity at A.
 \\
 \\
 This task of finding the causal relationships from non-trivial data can be compared to the process of scientific discovery.
@@ -285,20 +299,18 @@ Even in this idealized setting, very similar problems occurred as key non-linear
 It was also noted how important it is to be aware of the assumptions of the causal relationships as our linearity assumption went unchecked and impeded the learning process. 
 
 Generally, the difference between the interventional, causal approach and a pattern-searching, correlational approach was highlighted, as the causal inference gave many insights into the generative story of this data which would have been invisible when only looking for dependence.
-	
 \end{multicols}
 
-\newpage
-\begin{thebibliography}{9}
-	
-
-	
-	
-	
-
+\begin{thebibliography}{3}
+	\bibitem{tue} 
+	Herlau, Tue, Schmidt, Mikkel N. and Mørup, Morten. Introduction to Machine Learning and Data Mining Lecture Notes. Course material, 02450, Technical University of Denmark. 2019.
+	\bibitem{causality} 
+	Nørregaard, Jeppe and Hansen, Lars Kai. A Friendly Introduction to Causal Inference. Course material, 02463, Technical University of Denmark. 2020.
+	\bibitem{bartlett}
+	Wikipedia contributors. Bartlett's test. Wikipedia, The Free Encyclopedia. 2020. 
+	URL: \url{https://en.wikipedia.org/wiki/Bartlett\%27s_test}
 \end{thebibliography}
-
-
+\newpage
 \appendix
 \section{Visualizations}\label{visuals}
 \begin{figure}[H]
