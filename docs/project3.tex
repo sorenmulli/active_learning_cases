@@ -55,8 +55,6 @@
 	
 	
 \section{Introduction} 
-
-
 Statistical inference has a deep and well developed tradition for finding effects between stochastic variables. 
 Machine learning is one of the most flexible and succesful methods for this, but it is often limited at answering the question \textit{how}, but not the \textit{why} of the effects.
 As many problems in life requires knowledge about the underlying causal structure to be solvable, the \textit{how} is not always enough.
@@ -248,19 +246,29 @@ Amongst these, many were mutually exclusive given the assumptions that the causa
 
 	
 \section{Discussion}
-The approach of a higher number of  queries, each with few data points, had strengths and weaknesses. This approach allowed for a healthy process of estimating the expected result under each of the hypotheses that were viable at that time and getting falsified these hypotheses often. 
+The approach of a requesting a higher number of  queries, each with few data points, had strengths and weaknesses.
+This approach allowed for a healthy process of estimating the expected result under each of the hypotheses that were viable at that time and getting falsified these hypotheses often. 
 
-It also had some drawbacks that resulted in some confusion. A large amount of time was spent trying to create complicated causal relationships to explain effects that the next query revealed to be spurious. This was amplified by most of the nodes having high variance compared to their numerical size.
+It also had some drawbacks that resulted in some confusion.
+A large amount of time was spent trying to create complicated causal relationships to explain effects that the next query revealed to be spurious.
+This was amplified by most of the nodes having high variance compared to their numerical size.
 % There were also issues with using statistical tests whose assumptions were questionable: Bartlett's test of equal variance gave false flags in the small data sets early on\footnote{The test is according to \cite{bartlett} sensitive to normality and suggested spuriously that }.
 
-Another issue which held back the learning significantly and resulted in the need for at least one intervention on every variable was the underlying assumptions of the causal relationships. During most of the inference, linear, additive effects were the framework for modelling the graph. This misunderstanding resulted in some causal hypotheses to be overly complex to explain the effects on the node A. The effect from B to A was very difficult to encapsulate in the linear generative story and was thus often ignored and attributed to noise -- possibly an example of human confirmation bias. 
+Another issue which held back the learning significantly, and resulted in the need for at least one intervention on every variable, was the underlying assumptions of the causal relationships.
+During most of the inference, linear, additive effects were the framework for modelling the graph.
+This misunderstanding resulted in some causal hypotheses to be overly complex to explain the effects on the node A.
+The effect from B to A was very difficult to encapsulate in the linear generative story and was thus often ignored and attributed to noise -- possibly an example of human confirmation bias. 
 
 The non linear and more subtle effects were only discovered when (a) more data points were collected for the non-interventional data to iron out the spurious correlations, (b) the rigorous falsification of the 42 edges were performed and (c) \(\mathring{B\leftarrow0}\) was used to verify the suspicion of non linearity at A.
 \\
 \\
-This task of finding the causal relationships from non-trivial data can be compared to the process of scientific discovery. While this causal graph is idealized and stripped of many practical problems of reality, the core goals and methods are comparable. The worries of where hidden, confounding variables, in this case H, lie in the network is a core issue.
+This task of finding the causal relationships from non-trivial data can be compared to the process of scientific discovery.
+While this causal graph is idealized and stripped of many practical problems of reality, the core goals and methods are comparable.
+The worries of where hidden, confounding variables, in this case H, lie in the network is a core issue.
 
-A major difference to causal inference in real world data is that the number of possible explaining variables was fixed and known a priori in this project. A real study includes the challenge of limiting the included effects and may risk interpreting the results completely wrong if key variables are excluded. Even in this idealized setting, very similar problems occurred as key non-linear effects were missed, highlighting the pitfalls of considering a too small space of hypotheses. %Er version space dækkende for rummet af hypoteser?
+A major difference to causal inference in real world data is that the number of possible explaining variables was fixed and known a priori in this project.
+A real study includes the challenge of limiting the included effects considered and may risk interpreting the results completely wrong if key variables are excluded.
+Even in this idealized setting, very similar problems occurred as key non-linear effects were missed, highlighting the pitfalls of considering a too small space of hypotheses. %Er version space dækkende for rummet af hypoteser?
 
 \section{Learning outcomes} 
 	
@@ -271,7 +279,12 @@ A major difference to causal inference in real world data is that the number of 
 %	What you need to know more about, and how you can find out.
 %	What resources have helped you, that you might want to share. 
 	
-	By trying to explore and draw the causal model by making interventions on different variables, conditioning on the categorical variables and by looking at distributions, correlation, \textit{p}-values for student t-test and changes in variance, we have acquired a technique to infer causal relationships even for hidden variables. The difficulties in finding the causal relationships and determining the effects of the different variables have been discussed. However, in order to determine the causal graph, plotting and visualization tools have been very helpful along with the correlations displayed as well. 
+	By trying to explore and draw the causal model by making interventions on different variables, conditioning on the categorical variables and by looking at distributions, correlation, \textit{p}-values for student t-test and changes in variance, we have acquired a technique to infer causal relationships even for hidden variables.
+
+	The necessity for a systematic process of falsifying possible hypotheses in a structured way was learned.
+It was also noted how important it is to be aware of the assumptions of the causal relationships as our linearity assumption went unchecked and impeded the learning process. 
+
+Generally, the difference between the interventional, causal approach and a pattern-searching, correlational approach was highlighted, as the causal inference gave many insights into the generative story of this data which would have been invisible when only looking for dependence.
 	
 \end{multicols}
 
@@ -350,17 +363,6 @@ A major difference to causal inference in real world data is that the number of 
 \end{figure}
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
 
 
 
